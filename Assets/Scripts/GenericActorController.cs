@@ -32,7 +32,6 @@ public class GenericActorController : MonoBehaviour {
     public int defense = 5;
 
     /* animation data */
-    public bool animation_interpolate = true;
     private AnimationType anim_type = AnimationType.None;
     private float anim_timer = 0;
     private float max_lerp_time = 0;
@@ -60,7 +59,7 @@ public class GenericActorController : MonoBehaviour {
     }
 
     void StartAnimation(AnimationType type, float time) {
-        if (!animation_interpolate) return;
+        if (!GameManagerScript.instance().interpolate_animations) return;
         anim_type = type;
         max_lerp_time = time;
         anim_timer = 0;
