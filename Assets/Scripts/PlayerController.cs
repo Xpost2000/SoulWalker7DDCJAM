@@ -9,14 +9,6 @@ public class PlayerController : MonoBehaviour
     public InputAction turn_view;
     public InputAction attack;
 
-    // Don't know the best way to request this from
-    // the input action without making so many separate
-    // actions.
-    private bool moved_horizontally_last = false;
-    private bool moved_vertically_last = false;
-
-    private bool turned_last = false;
-
     void Start() {
         movement_action.started += OnMovementStart;
         turn_view.started += OnTurnStart;
@@ -40,7 +32,26 @@ public class PlayerController : MonoBehaviour
 
     void OnMovementStart(InputAction.CallbackContext ctx) {
         var movement = ctx.ReadValue<Vector2>();
-        transform.position += transform.forward * movement.y + transform.right * movement.x; 
+
+        RaycastHit raycast_result;
+        bool hit_anything = false;
+        if (Physics.Raycast(transform.position, transform.forward * movement.y, out raycast_result, 1)) {
+            print("Okay we hit something? (forward)");
+            print(raycast_result);
+            print(raycast_result.collider.gameObject.name);
+            print(raycast_result.point);
+            hit_anything = true;
+        }
+        if (Physics.Raycast(transform.position, transform.right * movement.x, out raycast_result, 1)) {
+            print("Okay we hit something? (right)");
+            print(raycast_result);
+            print(raycast_result.collider.gameObject.name);
+            print(raycast_result.collider);
+            print(raycast_result.point);
+            hit_anything = true;
+        }
+
+        if (!hit_anything) transform.position += transform.forward * movement.y + transform.right * movement.x; 
     }
 
     void OnDisable() {
