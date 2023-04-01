@@ -35,6 +35,12 @@ public class PlayerController : MonoBehaviour
 
         RaycastHit raycast_result;
         bool hit_anything = false;
+
+        bool is_on_ramp = false;
+        if (Physics.Raycast(transform.position, -transform.up, out raycast_result)) {
+            is_on_ramp = (raycast_result.collider.gameObject.tag ==  "Ramp");
+        }
+
         if (Physics.Raycast(transform.position, transform.forward * movement.y, out raycast_result, 1)) {
             print("Okay we hit something? (forward)");
             print(raycast_result);
@@ -52,6 +58,11 @@ public class PlayerController : MonoBehaviour
         }
 
         if (!hit_anything) transform.position += transform.forward * movement.y + transform.right * movement.x; 
+
+        // realign with floor
+        if (Physics.Raycast(transform.position, -transform.up, out raycast_result)) {
+            transform.position = new Vector3(transform.position.x, raycast_result.point.y+1, transform.position.z);
+        }
     }
 
     void OnDisable() {
