@@ -3980,6 +3980,7 @@ GameObject:
   - component: {fileID: 844404401}
   - component: {fileID: 844404405}
   - component: {fileID: 844404406}
+  - component: {fileID: 844404407}
   m_Layer: 0
   m_Name: PlayerMain
   m_TagString: Untagged
@@ -4170,7 +4171,7 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
-  animation_interpolate: 1
+  controller: {fileID: 0}
 --- !u!54 &844404406
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4187,6 +4188,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 122
   m_CollisionDetection: 0
+--- !u!114 &844404407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844404400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26f9fb21bc99c92498d5c825ee31a6cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 20
+  defense: 5
+  animation_interpolate: 1
 --- !u!1001 &870518768
 PrefabInstance:
   m_ObjectHideFlags: 0
