@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PunchableCamera : MonoBehaviour
 {
@@ -21,6 +23,11 @@ public class PunchableCamera : MonoBehaviour
         
     }
 
+    public void ConstantTrauma(float amount) {
+        trauma = amount;
+        if (trauma >= trauma_limit) trauma = trauma_limit;
+    }
+
     public void Traumatize(float amount) {
         trauma += amount;
         if (trauma >= trauma_limit) trauma = trauma_limit;
@@ -37,6 +44,9 @@ public class PunchableCamera : MonoBehaviour
             camera.transform.eulerAngles.y,
             trauma_offset_angle1
         );
+
+        // Don't have a controller right now but I hope this works
+        Gamepad.current?.SetMotorSpeeds(trauma * 0.88f, trauma * 0.5f);
 
         trauma -= dt * 0.198f;
         if (trauma <= 0.0f) trauma = 0.0f;

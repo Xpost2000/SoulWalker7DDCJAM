@@ -4456,6 +4456,46 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Movement_action
       m_Flags: 8
+    - m_Name: 2D Vector
+      m_Id: 9635aeff-b042-43b5-8a4f-b0326295a959
+      m_Path: 2DVector
+      m_Interactions: Press
+      m_Processors: 
+      m_Groups: 
+      m_Action: Movement_action
+      m_Flags: 4
+    - m_Name: up
+      m_Id: 1153d87a-9018-42d6-b030-fa59a810269a
+      m_Path: <Gamepad>/dpad/up
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Movement_action
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 1922c2d1-7ec9-46a9-9a94-1fc21cf361fc
+      m_Path: <Gamepad>/dpad/down
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Movement_action
+      m_Flags: 8
+    - m_Name: left
+      m_Id: fc911ca7-42f3-4272-b237-e0f6880eed20
+      m_Path: <Gamepad>/dpad/left
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Movement_action
+      m_Flags: 8
+    - m_Name: right
+      m_Id: 2a875cd6-0b22-4c79-8761-7125001367b5
+      m_Path: <Gamepad>/dpad/right
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Movement_action
+      m_Flags: 8
     m_Flags: 0
   turn_view:
     m_Name: Turn_view
@@ -4489,6 +4529,30 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Turn_view
       m_Flags: 8
+    - m_Name: 1D Axis
+      m_Id: 1471b372-6dc3-425c-afda-8db0eec1df11
+      m_Path: 1DAxis(whichSideWins=1)
+      m_Interactions: Press
+      m_Processors: 
+      m_Groups: 
+      m_Action: Turn_view
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: 3e41cc4f-d4df-4d4b-bbe7-ea7a62f2066b
+      m_Path: <Gamepad>/leftShoulder
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Turn_view
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: c3564344-78f5-4e58-9451-eee9f47a975b
+      m_Path: <Gamepad>/rightShoulder
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Turn_view
+      m_Flags: 8
     m_Flags: 0
   attack:
     m_Name: Attack
@@ -4501,6 +4565,14 @@ MonoBehaviour:
     - m_Name: 
       m_Id: 6b35b394-3418-43eb-85d2-f057296dcfa8
       m_Path: <Keyboard>/ctrl
+      m_Interactions: Press
+      m_Processors: 
+      m_Groups: 
+      m_Action: Attack
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 43e9edca-69dc-4d7d-9717-ffb1bcfba2cd
+      m_Path: <XInputController>/buttonWest
       m_Interactions: Press
       m_Processors: 
       m_Groups: 
@@ -6484,6 +6556,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interpolate_animations: 1
+  target_framerate: 20
   player: {fileID: 0}
   user_interface_container: {fileID: 0}
   active_level_container: {fileID: 0}
@@ -9000,6 +9073,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interpolate_animations: 1
+  target_framerate: 20
   player: {fileID: 844404400}
   user_interface_container: {fileID: 1770020270}
   active_level_container: {fileID: 889136609}

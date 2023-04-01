@@ -13,6 +13,7 @@ public enum GameState {
 
 public class GameManagerScript : MonoBehaviour {
     public bool interpolate_animations = true;
+    public int target_framerate = 20; // crunchy framerate.
 
     // handle game state
     public GameObject player;
@@ -39,6 +40,8 @@ public class GameManagerScript : MonoBehaviour {
 
     void Start() {
         State = GameState.Ingame;
+
+        Application.targetFrameRate = target_framerate;
     }
 
     void Update() {}
