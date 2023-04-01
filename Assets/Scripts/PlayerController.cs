@@ -10,17 +10,36 @@ public class PlayerController : MonoBehaviour
     public InputAction attack;
 
     public GenericActorController controller;
+    public PunchableCamera camera;
+
+    public void DisableInput() {
+        movement_action.Disable();
+        turn_view.Disable();
+        attack.Disable();
+    }
+    public void EnableInput() {
+        movement_action.Enable();
+        turn_view.Enable();
+        attack.Enable();
+    }
 
     void Start() {
         movement_action.started += OnMovementStart;
         turn_view.started += OnTurnStart;
+        attack.started += OnAttack;
+
         controller = GetComponent<GenericActorController>();
+        camera = GetComponent<PunchableCamera>();
+        controller.on_hurt += OnHurt;
     }
 
-    void OnEnable() {
-        movement_action.Enable();
-        turn_view.Enable();
-        attack.Enable();
+    void OnHurt(int health) {
+        // move the camera
+        camera.Traumatize(0.12f);
+    }
+
+    void OnAttack(InputAction.CallbackContext ctx) {
+        controller.Hurt(10);
     }
 
     void OnTurnStart(InputAction.CallbackContext ctx) {
@@ -32,11 +51,8 @@ public class PlayerController : MonoBehaviour
         controller.MoveDirection(movement);
     }
 
-    void OnDisable() {
-        movement_action.Disable();
-        turn_view.Disable();
-        attack.Disable();
-    }
+    void OnEnable() {EnableInput();}
+    void OnDisable() {DisableInput();}
 
     void FixedUpdate() {
     }

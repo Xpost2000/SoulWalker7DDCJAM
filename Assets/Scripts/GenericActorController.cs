@@ -22,7 +22,13 @@ public class GenericActorController : MonoBehaviour {
     private Vector3 logical_position;
     private float   logical_rotation;
 
+    // TODO: add considerations for soul mode since all entities can go into spirit mode
+
+    public int max_health = 20;
     public int health = 20;
+
+    // this changes in soul mode.
+    // depends on the player.
     public int defense = 5;
 
     /* animation data */
@@ -37,10 +43,20 @@ public class GenericActorController : MonoBehaviour {
     private static float ANIM_TIME_MOVEMENT = ANIM_TIME_ACTOR;
     private static float ANIM_TIME_ROTATE = ANIM_TIME_ACTOR;
 
+    /*
+      events
+     */
+    public delegate void OnHurt(int amount);
+    public event OnHurt on_hurt;
+    /*
+      end events
+     */
+
     // Start is called before the first frame update
     void Start() {
         logical_position = transform.position;
         logical_rotation = transform.eulerAngles.y;
+        max_health = health;
     }
 
     void StartAnimation(AnimationType type, float time) {
@@ -84,6 +100,11 @@ public class GenericActorController : MonoBehaviour {
             logical_position = new Vector3(logical_position.x, raycast_result.point.y+1, logical_position.z);
         }
 
+    }
+
+    public void Hurt(int health) {
+        this.health -= (health-this.defense);
+        on_hurt?.Invoke(health);
     }
 
     public void Rotate(int direction) {
