@@ -1323,124 +1323,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 304761888}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &330585543
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 330585546}
-  - component: {fileID: 330585545}
-  - component: {fileID: 330585544}
-  - component: {fileID: 330585547}
-  m_Layer: 0
-  m_Name: Main Camera
-  m_TagString: MainCamera
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!81 &330585544
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
---- !u!20 &330585545
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
---- !u!4 &330585546
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &330585547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 1
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_Version: 2
 --- !u!1001 &337595189
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2120,7 +2002,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &410087042
 MonoBehaviour:
@@ -3389,7 +3271,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &844404400
 GameObject:
@@ -3490,7 +3372,7 @@ Transform:
   m_Children:
   - {fileID: 1662851866}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &844404405
 MonoBehaviour:
@@ -3504,6 +3386,97 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56e31f81ca5785c4297621a2321de739, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movement_action:
+    m_Name: Movement_action
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 59f717b8-2583-483c-aa2c-91e703518067
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 2D Vector
+      m_Id: e3d7c9d0-5156-4ce8-b608-6ffceeb2e37e
+      m_Path: 2DVector(mode=1)
+      m_Interactions: Press
+      m_Processors: 
+      m_Groups: 
+      m_Action: Movement_action
+      m_Flags: 4
+    - m_Name: up
+      m_Id: 35b84470-6608-437b-876d-ed585d620cdb
+      m_Path: <Keyboard>/w
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Movement_action
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 0ab18eb3-47f9-456b-bceb-0e51cd49100f
+      m_Path: <Keyboard>/s
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Movement_action
+      m_Flags: 8
+    - m_Name: left
+      m_Id: 97bf5c06-051d-4018-af7c-b2cb18d2b079
+      m_Path: <Keyboard>/a
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Movement_action
+      m_Flags: 8
+    - m_Name: right
+      m_Id: 0c2712fa-2fbc-4ac6-b292-d7d19d6d60db
+      m_Path: <Keyboard>/d
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Movement_action
+      m_Flags: 8
+    m_Flags: 0
+  turn_view:
+    m_Name: Turn_view
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 4021d996-b1fd-4565-aaae-a6ba92070650
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 1D Axis
+      m_Id: 0ba5d163-ad80-4a6f-8630-c3a23ae0daab
+      m_Path: 1DAxis(whichSideWins=1)
+      m_Interactions: Press
+      m_Processors: 
+      m_Groups: 
+      m_Action: Turn_view
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: 3ee37a37-d123-4b45-bfd2-d88aa3d44e8b
+      m_Path: <Keyboard>/q
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Turn_view
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: 35cc326d-bb1a-49ce-809e-ee6e866fb222
+      m_Path: <Keyboard>/e
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Turn_view
+      m_Flags: 8
+    m_Flags: 0
+  attack:
+    m_Name: Attack
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: d43969b0-d4dc-40b9-9112-b580ef191db1
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!54 &844404406
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6235,7 +6208,7 @@ Transform:
   - {fileID: 1022860691}
   - {fileID: 390049870}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1476819744
 PrefabInstance:
@@ -6462,27 +6435,27 @@ Transform:
   - {fileID: 1235863916}
   - {fileID: 82765339}
   - {fileID: 1013235172}
-  - {fileID: 1476819745}
-  - {fileID: 1314946394}
-  - {fileID: 226928268}
-  - {fileID: 886705033}
   - {fileID: 1191853915}
   - {fileID: 194582430}
+  - {fileID: 226928268}
   - {fileID: 43482711}
   - {fileID: 609939261}
   - {fileID: 124348099}
   - {fileID: 800376424}
+  - {fileID: 1476819745}
+  - {fileID: 1314946394}
   - {fileID: 2119894560}
-  - {fileID: 1700321563}
   - {fileID: 640796804}
   - {fileID: 1387291075}
   - {fileID: 67363686}
-  - {fileID: 1255227233}
+  - {fileID: 886705033}
   - {fileID: 1845710546}
+  - {fileID: 1700321563}
   - {fileID: 157018049}
   - {fileID: 1230039431}
   - {fileID: 719438572}
   - {fileID: 1413906222}
+  - {fileID: 1255227233}
   - {fileID: 304761889}
   - {fileID: 1198822606}
   - {fileID: 497843889}
