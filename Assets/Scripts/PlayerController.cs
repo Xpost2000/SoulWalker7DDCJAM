@@ -9,6 +9,10 @@ public class PlayerController : MonoBehaviour
     public InputAction turn_view;
     public InputAction attack;
 
+    /* TODO: interpolated/smooth motion */
+    private Vector3 logical_position;
+    private float   logical_rotation;
+
     void Start() {
         movement_action.started += OnMovementStart;
         turn_view.started += OnTurnStart;
@@ -42,25 +46,20 @@ public class PlayerController : MonoBehaviour
         }
 
         if (Physics.Raycast(transform.position, transform.forward * movement.y, out raycast_result, 1)) {
-            print("Okay we hit something? (forward)");
-            print(raycast_result);
-            print(raycast_result.collider.gameObject.name);
-            print(raycast_result.point);
             hit_anything = true;
         }
         if (Physics.Raycast(transform.position, transform.right * movement.x, out raycast_result, 1)) {
-            print("Okay we hit something? (right)");
-            print(raycast_result);
-            print(raycast_result.collider.gameObject.name);
-            print(raycast_result.collider);
-            print(raycast_result.point);
             hit_anything = true;
         }
 
         if (!hit_anything) transform.position += transform.forward * movement.y + transform.right * movement.x; 
 
         // realign with floor
-        if (Physics.Raycast(transform.position, -transform.up, out raycast_result)) {
+        print("Align with floor");
+
+        // TODO: move this out to some other controller thingy
+        // assume the alignment is always one object higher.
+        if (Physics.Raycast(transform.position + transform.up, -transform.up, out raycast_result)) {
             transform.position = new Vector3(transform.position.x, raycast_result.point.y+1, transform.position.z);
         }
     }
