@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public InputAction turn_view;
     public InputAction attack;
     public InputAction confirm_use;
+    public InputAction open_inventory;
     public InputAction pause_game;
 
     public GenericActorController controller;
@@ -33,12 +34,14 @@ public class PlayerController : MonoBehaviour
         turn_view.Disable();
         attack.Disable();
         confirm_use.Disable();
+        open_inventory.Enable();
     }
     public void EnableInput() {
         movement_action.Enable();
         turn_view.Enable();
         attack.Enable();
         confirm_use.Enable();
+        open_inventory.Enable();
         // NOTE: this is never disabled
         pause_game.Enable();
     }
@@ -102,6 +105,7 @@ public class PlayerController : MonoBehaviour
         attack.started += OnAttack;
         pause_game.started += OnPauseGame;
         confirm_use.started += OnConfirmOrUse;
+        open_inventory.started += OnOpenInventory;
 
         controller = GetComponent<GenericActorController>();
         camera = GetComponent<PunchableCamera>();
@@ -116,6 +120,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnDeath(ActorState form) {
+        print("register on death");
         if (form == ActorState.Body) {
             GameManagerScript.instance().MessageLog.NewMessage(
                 "You have lost your corporeal form!",
@@ -199,8 +204,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnAttack(InputAction.CallbackContext ctx) {
+    void OnOpenInventory(InputAction.CallbackContext ctx) {
         ToggleInventory();
+    }
+
+    void OnAttack(InputAction.CallbackContext ctx) {
         controller.Hurt(10);
         // GameManagerScript.instance().MessageLog.NewMessage("Player attacks!", Color.white);
     }
