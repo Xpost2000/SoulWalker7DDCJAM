@@ -18,7 +18,6 @@ public class GameManagerScript : MonoBehaviour {
     // handle game state
     public GameObject player;
     public GameObject user_interface_container;
-    public GameObject active_level_container;
 
     private GameState m_state = GameState.None;
     public GameState State {
@@ -45,6 +44,10 @@ public class GameManagerScript : MonoBehaviour {
     }
 
     void Update() {}
+
+    void LoadLevel() {
+        // TODO: not tested!
+    }
 
     public static GameManagerScript instance() {
         var result = GameObject.Find("MainGameManager?");
