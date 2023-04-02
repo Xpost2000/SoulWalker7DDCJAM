@@ -120,8 +120,9 @@ public class GenericActorController : MonoBehaviour {
     }
 
     public void Hurt(int health) {
-        this.health -= (health-this.defense);
-        on_hurt?.Invoke(health);
+        int actual_damage = health-this.defense
+        this.health -= (actual_damage);
+        on_hurt?.Invoke(actual_damage);
         if (this.health <= 0) {
             // NOTE: account for two healthpools?
             on_death?.Invoke();
