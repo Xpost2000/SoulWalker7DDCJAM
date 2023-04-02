@@ -47,6 +47,8 @@ public class GenericActorController : MonoBehaviour {
      */
     public delegate void OnHurt(int amount);
     public delegate void OnDeath();
+    public delegate void OnPickup(GameObject item);
+    public event OnPickup on_pickup;
     public event OnHurt on_hurt;
     public event OnDeath on_death;
     /*
@@ -88,7 +90,7 @@ public class GenericActorController : MonoBehaviour {
         }
 
         if (Physics.Raycast(logical_position, transform.forward * movement.y, out raycast_result, 1)) {
-            if (raycast_result.collider.gameObject.tag != "Player attacks!") {
+            if (raycast_result.collider.gameObject.tag != "Pickup") {
                 hit_anything = true;
             }
         }
@@ -113,14 +115,18 @@ public class GenericActorController : MonoBehaviour {
     void OnTriggerEnter(Collider collider) {
         var collider_object = collider.gameObject;
         if (collider_object.tag == "Pickup") {
-            collider_object.GetComponent<ItemPickupGeneric>().InvokeOnTrigger(gameObject);
-            print("Hi pickup!");
+            if (gameObject.tag == "Player") {
+                collider_object.GetComponent<ItemPickupGeneric>().InvokeOnTrigger(gameObject);
+                on_pickup?.Invoke(collider_object.GetComponent<ItemPickupGeneric>().reward_item);
+                print("Hi pickup!");
+            } else {
+            }
         } else {
         }
     }
 
     public void Hurt(int health) {
-        int actual_damage = health-this.defense
+        int actual_damage = health-this.defense;
         this.health -= (actual_damage);
         on_hurt?.Invoke(actual_damage);
         if (this.health <= 0) {

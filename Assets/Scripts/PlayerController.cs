@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     public GenericActorController controller;
     public PunchableCamera camera;
 
+    int selected_item_index = 0;
+    public List<GameObject> items;
+
     public void DisableInput() {
         movement_action.Disable();
         turn_view.Disable();
@@ -26,6 +29,15 @@ public class PlayerController : MonoBehaviour
         pause_game.Enable();
     }
 
+    void OnItemPickup(GameObject what_item) {
+        var healing_component = what_item.GetComponent<HealingItem>();
+        if (healing_component) {
+            GameManagerScript.instance().MessageLog.NewMessage("Picked up an ether!", Color.green);
+        }
+
+        items.Add(what_item);
+    }
+
     void Start() {
         movement_action.started += OnMovementStart;
         turn_view.started += OnTurnStart;
@@ -37,6 +49,9 @@ public class PlayerController : MonoBehaviour
 
         controller.on_hurt += OnHurt;
         controller.on_death += OnDeath;
+        controller.on_pickup += OnItemPickup;
+
+        items = new List<GameObject>();
     }
 
     void OnDeath() {
