@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SolidTile
   - Ramp
+  - Pickup
   layers:
   - Default
   - TransparentFX

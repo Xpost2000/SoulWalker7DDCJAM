@@ -17,7 +17,7 @@ public class PlayerSpawnLocation : MonoBehaviour
 
         // Now I die!
         print("Now I die!");
-        Destroy(gameObject);
+        Destroy(this.gameObject);
     }
 
     // Update is called once per frame

@@ -82,15 +82,20 @@ public class GenericActorController : MonoBehaviour {
 
         bool is_on_ramp = false;
 
+        // collision pickup logic is here lol!
         if (Physics.Raycast(logical_position, -transform.up, out raycast_result)) {
             is_on_ramp = (raycast_result.collider.gameObject.tag ==  "Ramp");
         }
 
         if (Physics.Raycast(logical_position, transform.forward * movement.y, out raycast_result, 1)) {
-            hit_anything = true;
+            if (raycast_result.collider.gameObject.tag != "Pickup") {
+                hit_anything = true;
+            }
         }
         if (Physics.Raycast(logical_position, transform.right * movement.x, out raycast_result, 1)) {
-            hit_anything = true;
+            if (raycast_result.collider.gameObject.tag != "Pickup") {
+                hit_anything = true;
+            }
         }
 
         if (!hit_anything) logical_position += transform.forward * movement.y + transform.right * movement.x; 
@@ -98,9 +103,20 @@ public class GenericActorController : MonoBehaviour {
         // realign with floor
         print("Align with floor");
         if (Physics.Raycast(logical_position + transform.up, -transform.up, out raycast_result)) {
-            logical_position = new Vector3(logical_position.x, raycast_result.point.y+1, logical_position.z);
+            if (raycast_result.collider.gameObject.tag != "Pickup") {
+                logical_position = new Vector3(logical_position.x, raycast_result.point.y+1, logical_position.z);
+            }
         }
 
+    }
+
+    void OnTriggerEnter(Collider collider) {
+        var collider_object = collider.gameObject;
+        if (collider_object.tag == "Pickup") {
+            collider_object.GetComponent<ItemPickupGeneric>().InvokeOnTrigger(gameObject);
+            print("Hi pickup!");
+        } else {
+        }
     }
 
     public void Hurt(int health) {
