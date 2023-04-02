@@ -167,9 +167,13 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Open3DInventory() {
-        inventory_display_container.SetActive(true);
-        // position all items
-        Adjust3DInventoryChildrenLocation();
+        if (inventory_display_container.transform.childCount == 0) {
+            GameManagerScript.instance().MessageLog.NewMessage("Inventory empty!", Color.red);
+        } else {
+            inventory_display_container.SetActive(true);
+            // position all items
+            Adjust3DInventoryChildrenLocation();
+        }
     }
 
     public void ToggleInventory() {
