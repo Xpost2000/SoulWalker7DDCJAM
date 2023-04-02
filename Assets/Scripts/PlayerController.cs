@@ -9,6 +9,7 @@ using TMPro;
   This isn't technically just a controller. A lot of the
   logic is also here. I know it's kinda dumb
  */
+
 public class PlayerController : MonoBehaviour
 {
     public InputAction movement_action;
@@ -114,15 +115,29 @@ public class PlayerController : MonoBehaviour
         Close3DInventory();
     }
 
-    void OnDeath() {
-        GameManagerScript.instance().State = GameState.GameOver;
-        pause_game.Disable();
+    void OnDeath(ActorState form) {
+        if (form == ActorState.Body) {
+            GameManagerScript.instance().MessageLog.NewMessage(
+                "You have lost your corporeal form!",
+                Color.red
+            );
+            camera.Traumatize(0.45f);
+            controller.form = ActorState.Soul;
+        } else {
+            GameManagerScript.instance().State = GameState.GameOver;
+            pause_game.Disable();
+        }
     }
 
-    void OnHurt(int health) {
+    void OnHurt(int health, ActorState form) {
         // move the camera
-        camera.Traumatize(0.12f);
-        GameManagerScript.instance().MessageLog.NewMessage("Player has been hurt for " + health.ToString() + " damage!", Color.red);
+        // soul damage is more traumatizing.
+        if (form == ActorState.Soul) {
+            camera.Traumatize(0.23f);
+        } else {
+            camera.Traumatize(0.15f);
+        }
+        GameManagerScript.instance().MessageLog.NewMessage("You have been hurt for " + health.ToString() + " damage!", Color.red);
     }
 
     void OnPauseGame(InputAction.CallbackContext ctx) {

@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 23936250}
   - component: {fileID: 23936249}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: ExistenceStateText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -292,10 +292,10 @@ RectTransform:
   m_Father: {fileID: 767790728}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 106.7359, y: -4.3344}
-  m_SizeDelta: {x: 413.4717, y: 58.6689}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 342.37, y: 89.667}
+  m_SizeDelta: {x: 633.73584, y: 29.334473}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &23936249
 MonoBehaviour:
@@ -317,7 +317,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Some Placeholder Text?
+  m_text: SOUL FORM
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 68c7a7013bffed741bc01e017f36ab20, type: 2}
   m_sharedMaterial: {fileID: 4346371042649017780, guid: 68c7a7013bffed741bc01e017f36ab20,
@@ -1491,6 +1491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player_object: {fileID: 844404400}
   hp_text_target: {fileID: 1922567255}
+  existence_text_target: {fileID: 23936247}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1910,8 +1911,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f9fb21bc99c92498d5c825ee31a6cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  form: 1
   max_health: 20
   health: 20
+  max_soul_health: -1
+  soul_health: -1
   defense: 5
 --- !u!114 &844404408
 MonoBehaviour:

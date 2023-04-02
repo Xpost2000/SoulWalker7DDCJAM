@@ -18,14 +18,22 @@ public enum AnimationType {
     Rotation
 };
 
+public enum ActorState {
+    Soul,
+    Body,
+};
+
 public class GenericActorController : MonoBehaviour {
     private Vector3 logical_position;
     private float   logical_rotation;
+    public ActorState form;
 
     // TODO: add considerations for soul mode since all entities can go into spirit mode
 
     public int max_health = 20;
     public int health = 20;
+    public int max_soul_health = -1;
+    public int soul_health = -1;
 
     // this changes in soul mode.
     // depends on the player.
@@ -45,8 +53,8 @@ public class GenericActorController : MonoBehaviour {
     /*
       events
      */
-    public delegate void OnHurt(int amount);
-    public delegate void OnDeath();
+    public delegate void OnHurt(int amount, ActorState damage_form);
+    public delegate void OnDeath(ActorState death_form);
     public delegate void OnPickup(GameObject item);
     public event OnPickup on_pickup;
     public event OnHurt on_hurt;
@@ -60,6 +68,14 @@ public class GenericActorController : MonoBehaviour {
         logical_position = transform.position;
         logical_rotation = transform.eulerAngles.y;
         max_health = health;
+
+        if (max_soul_health == -1 ||
+            soul_health == -1) {
+            print("NOTE: no override on soul health!");
+            // Soul health is always half the actual health of a character
+            // if it is not explicitly initialized
+            max_soul_health = soul_health = (max_health/2);
+        }
     }
 
     void StartAnimation(AnimationType type, float time) {
@@ -125,19 +141,91 @@ public class GenericActorController : MonoBehaviour {
         }
     }
 
-    public void Heal(int health) {
+    public void HealSoul(int health) {
+        this.soul_health += health;
+        if (this.soul_health > this.max_soul_health) {
+            this.soul_health = this.max_soul_health;
+        }
+    }
+    public void HealBody(int health) {
         this.health += health;
         if (this.health > this.max_health) {
             this.health = this.max_health;
         }
     }
-    public void Hurt(int health) {
+
+    // generic heal
+    public void Heal(int health) {
+        switch (form) {
+            case ActorState.Body: {
+                HealBody(health);
+            } break;
+            case ActorState.Soul: {
+                HealSoul(health);
+            } break;
+        }
+    }
+
+    public float Health {
+        get {
+            switch (form) {
+                case ActorState.Body: {
+                    return health;
+                } break;
+                case ActorState.Soul: {
+                    return soul_health;
+                } break;
+            }
+            return 0.0f;
+        }
+    }
+    public float MaxHealth {
+        get {
+            switch (form) {
+                case ActorState.Body: {
+                    return max_health;
+                } break;
+                case ActorState.Soul: {
+                    return max_soul_health;
+                } break;
+            }
+            return 0.0f;
+        }
+    }
+
+    public float HealthPercent {
+        get {
+            return Health / MaxHealth;
+        }
+    }
+
+    public void HurtSoul(int health) {
+        int actual_damage = health-this.defense/2;
+        this.soul_health -= (actual_damage);
+        on_hurt?.Invoke(actual_damage, ActorState.Soul);
+        if (this.soul_health <= 0) {
+            on_death?.Invoke(ActorState.Soul);
+        }
+    }
+
+    public void HurtBody(int health) {
         int actual_damage = health-this.defense;
         this.health -= (actual_damage);
-        on_hurt?.Invoke(actual_damage);
+        on_hurt?.Invoke(actual_damage, ActorState.Body);
         if (this.health <= 0) {
-            // NOTE: account for two healthpools?
-            on_death?.Invoke();
+            on_death?.Invoke(ActorState.Body);
+        }
+    }
+
+    // generic class hurt
+    public void Hurt(int health) {
+        switch (form) {
+            case ActorState.Body: {
+                HurtBody(health);
+            } break;
+            case ActorState.Soul: {
+                HurtSoul(health);
+            } break;
         }
     }
 
