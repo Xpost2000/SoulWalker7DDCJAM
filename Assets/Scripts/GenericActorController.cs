@@ -90,6 +90,23 @@ public class GenericActorController : MonoBehaviour {
     // NOTE: no one can hover, since we always snap to the floor
     // TODO: provide events on specific item collisions.
     // or bit flags on behaviors
+    bool ConsiderCollidingWith(string tagname) {
+        switch (tagname) {
+            case "Pickup":
+            case "Nonsolid": {
+                return false;
+            } break;
+            case "SolidForSoulOnly": {
+                if (form == ActorState.Soul) return true;
+                else return false;
+            } break;
+            case "SolidForBodyOnly": {
+                if (form == ActorState.Soul) return false;
+                else return true;
+            } break;
+        }
+        return true;
+    }
     public void MoveDirection(Vector2 direction) {
         if (anim_type != AnimationType.None) return;
         var movement = direction;
@@ -105,15 +122,9 @@ public class GenericActorController : MonoBehaviour {
             is_on_ramp = (raycast_result.collider.gameObject.tag ==  "Ramp");
         }
 
-        if (Physics.Raycast(logical_position, transform.forward * movement.y, out raycast_result, 1)) {
-            if (raycast_result.collider.gameObject.tag != "Pickup") {
-                hit_anything = true;
-            }
-        }
-        if (Physics.Raycast(logical_position, transform.right * movement.x, out raycast_result, 1)) {
-            if (raycast_result.collider.gameObject.tag != "Pickup") {
-                hit_anything = true;
-            }
+        if (Physics.Raycast(logical_position, transform.forward * movement.y, out raycast_result, 1) ||
+            Physics.Raycast(logical_position, transform.right * movement.x, out raycast_result, 1)) {
+            hit_anything = ConsiderCollidingWith(raycast_result.collider.gameObject.tag);
         }
 
         if (!hit_anything) logical_position += transform.forward * movement.y + transform.right * movement.x; 
@@ -121,7 +132,7 @@ public class GenericActorController : MonoBehaviour {
         // realign with floor
         print("Align with floor");
         if (Physics.Raycast(logical_position + transform.up, -transform.up, out raycast_result)) {
-            if (raycast_result.collider.gameObject.tag != "Pickup") {
+            if (ConsiderCollidingWith(raycast_result.collider.gameObject.tag)) {
                 logical_position = new Vector3(logical_position.x, raycast_result.point.y+1, logical_position.z);
             }
         }

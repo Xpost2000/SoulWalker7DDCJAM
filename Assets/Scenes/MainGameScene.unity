@@ -1853,6 +1853,31 @@ MonoBehaviour:
       m_Action: Confirm_use
       m_Flags: 0
     m_Flags: 0
+  open_inventory:
+    m_Name: Open_inventory
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 4b41eb3f-8e9c-4117-8fb6-6c9c47454b27
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 37d33ce1-f1dd-4fd2-97cc-8f1994142d71
+      m_Path: <Keyboard>/tab
+      m_Interactions: Press
+      m_Processors: 
+      m_Groups: 
+      m_Action: Open_inventory
+      m_Flags: 0
+    - m_Name: 
+      m_Id: b626d66c-01bf-4c8b-b15f-31ea9fd7ace5
+      m_Path: <Gamepad>/select
+      m_Interactions: Press
+      m_Processors: 
+      m_Groups: 
+      m_Action: Open_inventory
+      m_Flags: 0
+    m_Flags: 0
   pause_game:
     m_Name: Pause_game
     m_Type: 0

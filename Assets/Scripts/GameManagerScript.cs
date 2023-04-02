@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /*
   This technically refers to UI state but okay.
@@ -101,8 +103,9 @@ public class GameManagerScript : MonoBehaviour {
 
     void Update() {}
 
-    void LoadLevel() {
+    public void LoadLevel(string scene_name) {
         // TODO: not tested!
+        SceneManager.LoadScene(scene_name, LoadSceneMode.Additive);
     }
 
     public static GameManagerScript instance() {
