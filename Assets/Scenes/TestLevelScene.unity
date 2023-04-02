@@ -7251,7 +7251,7 @@ GameObject:
   - component: {fileID: 1525116062}
   - component: {fileID: 1525116063}
   m_Layer: 0
-  m_Name: GenericPickup
+  m_Name: test
   m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

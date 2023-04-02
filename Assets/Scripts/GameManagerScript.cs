@@ -22,10 +22,17 @@ public class GameManagerScript : MonoBehaviour {
     // handle game state
     public GameObject player;
     public GameObject user_interface_container;
+    public GameObject message_log;
 
     public GameObject ui_pause;
     public GameObject ui_gameover;
     public GameObject ui_ingame;
+
+    public MessageLogPanel MessageLog {
+        get {
+            return message_log.GetComponent<MessageLogPanel>();
+        }
+    }
 
     private GameState m_state = GameState.None;
     public GameState State {

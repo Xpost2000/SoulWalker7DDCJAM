@@ -58,7 +58,8 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnAttack(InputAction.CallbackContext ctx) {
-        controller.Hurt(10);
+        // controller.Hurt(10);
+        GameManagerScript.instance().MessageLog.NewMessage("Hello!", Color.white);
     }
 
     void OnTurnStart(InputAction.CallbackContext ctx) {
