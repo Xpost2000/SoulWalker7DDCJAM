@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+  This technically refers to UI state but okay.
+ */
 public enum GameState {
     None,
     MainMenu,
     Ingame,
     Pause,
     GameOver,
+    Options,
     GameWin
 }
 
@@ -33,24 +37,18 @@ public class GameManagerScript : MonoBehaviour {
                     case GameState.GameWin: {
                     } break;
                     case GameState.GameOver: {
-                        foreach (Transform child in user_interface_container.transform) {
-                            child.gameObject.SetActive(false);
-                        }
-
-                        GameObject gameover_ui = user_interface_container.transform.Find("UIGameoverCanvas").gameObject;
-                        gameover_ui.SetActive(true);
-
+                        HideAllUIChildren();
+                        FindUI("UIGameoverCanvas").SetActive(true);
                         player.GetComponent<PlayerController>().DisableInput();
                     } break;
                     case GameState.Pause: {
+                        HideAllUIChildren();
+                        FindUI("UIPauseMenuCanvas").SetActive(true);
+                        player.GetComponent<PlayerController>().DisableInput();
                     } break;
                     case GameState.Ingame: {
-                        foreach (Transform child in user_interface_container.transform) {
-                            child.gameObject.SetActive(false);
-                        }
-
-                        GameObject gameplay_ui = user_interface_container.transform.Find("UIGameplayCanvas").gameObject;
-                        gameplay_ui.SetActive(true);
+                        HideAllUIChildren();
+                        FindUI("UIGameplayCanvas").SetActive(true);
                         player.GetComponent<PlayerController>().EnableInput();
                     } break;
                     case GameState.MainMenu: {
@@ -60,6 +58,16 @@ public class GameManagerScript : MonoBehaviour {
                     } break;
                 }
             }
+        }
+    }
+
+    GameObject FindUI(string name) {
+        return user_interface_container.transform.Find(name).gameObject;
+    }
+
+    void HideAllUIChildren() {
+        foreach (Transform child in user_interface_container.transform) {
+            child.gameObject.SetActive(false);
         }
     }
 
