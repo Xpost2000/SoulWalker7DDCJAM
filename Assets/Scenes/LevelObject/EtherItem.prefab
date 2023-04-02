@@ -125,5 +125,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93b215c02ff3a44daeeacb73ecf8f50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amount: 0
-  description: 
+  amount: 5
+  description: Healing Essence +5 HP

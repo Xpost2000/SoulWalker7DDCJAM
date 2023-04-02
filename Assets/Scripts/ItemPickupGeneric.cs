@@ -26,7 +26,8 @@ public class ItemPickupGeneric : MonoBehaviour
 
     public void InvokeOnTrigger(GameObject actorToAward) {
         print("Hi, I'm dying!");
-        on_pickup?.Invoke(actorToAward, reward_item);
+        // unused
+        on_pickup?.Invoke(actorToAward, Instantiate(reward_item));
         Destroy(this.gameObject);
     }
 
