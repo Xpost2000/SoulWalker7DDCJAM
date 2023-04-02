@@ -88,7 +88,7 @@ public class GenericActorController : MonoBehaviour {
         }
 
         if (Physics.Raycast(logical_position, transform.forward * movement.y, out raycast_result, 1)) {
-            if (raycast_result.collider.gameObject.tag != "Pickup") {
+            if (raycast_result.collider.gameObject.tag != "Player attacks!") {
                 hit_anything = true;
             }
         }

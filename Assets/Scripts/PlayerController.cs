@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
     void OnHurt(int health) {
         // move the camera
         camera.Traumatize(0.12f);
+        GameManagerScript.instance().MessageLog.NewMessage("Player has been hurt for " + health.ToString() + " damage!", Color.red);
     }
 
     void OnPauseGame(InputAction.CallbackContext ctx) {
@@ -58,8 +59,8 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnAttack(InputAction.CallbackContext ctx) {
-        // controller.Hurt(10);
-        GameManagerScript.instance().MessageLog.NewMessage("Hello!", Color.white);
+        controller.Hurt(10);
+        // GameManagerScript.instance().MessageLog.NewMessage("Player attacks!", Color.white);
     }
 
     void OnTurnStart(InputAction.CallbackContext ctx) {
