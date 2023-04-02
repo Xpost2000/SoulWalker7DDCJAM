@@ -125,6 +125,12 @@ public class GenericActorController : MonoBehaviour {
         }
     }
 
+    public void Heal(int health) {
+        this.health += health;
+        if (this.health > this.max_health) {
+            this.health = this.max_health;
+        }
+    }
     public void Hurt(int health) {
         int actual_damage = health-this.defense;
         this.health -= (actual_damage);

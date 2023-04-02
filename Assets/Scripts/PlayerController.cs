@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public InputAction movement_action;
     public InputAction turn_view;
     public InputAction attack;
+    public InputAction confirm_use;
     public InputAction pause_game;
 
     public GenericActorController controller;
@@ -30,11 +31,13 @@ public class PlayerController : MonoBehaviour
         movement_action.Disable();
         turn_view.Disable();
         attack.Disable();
+        confirm_use.Disable();
     }
     public void EnableInput() {
         movement_action.Enable();
         turn_view.Enable();
         attack.Enable();
+        confirm_use.Enable();
         // NOTE: this is never disabled
         pause_game.Enable();
     }
@@ -97,6 +100,7 @@ public class PlayerController : MonoBehaviour
         turn_view.started += OnTurnStart;
         attack.started += OnAttack;
         pause_game.started += OnPauseGame;
+        confirm_use.started += OnConfirmOrUse;
 
         controller = GetComponent<GenericActorController>();
         camera = GetComponent<PunchableCamera>();
@@ -126,6 +130,15 @@ public class PlayerController : MonoBehaviour
             GameManagerScript.instance().State = GameState.Pause;
         } else {
             GameManagerScript.instance().State = GameState.Ingame;
+        }
+    }
+
+    void OnConfirmOrUse(InputAction.CallbackContext ctx) {
+        if (InventoryActive()) {
+            UseInventoryItem(selected_item_index);
+        } else {
+            // fire a raycast and see if we hit a door?
+            // if a door is locked we'll check if we have the key item I suppose.
         }
     }
 
@@ -169,7 +182,7 @@ public class PlayerController : MonoBehaviour
 
     void OnAttack(InputAction.CallbackContext ctx) {
         ToggleInventory();
-        // controller.Hurt(10);
+        controller.Hurt(10);
         // GameManagerScript.instance().MessageLog.NewMessage("Player attacks!", Color.white);
     }
 
@@ -198,10 +211,30 @@ public class PlayerController : MonoBehaviour
     void OnEnable() {EnableInput();}
     void OnDisable() {DisableInput();}
 
-    void FixedUpdate() {
-    }
+    // bad code or something
+    public void UseInventoryItem(int index) {
+        int i = 0;
+        foreach (Transform child in inventory_display_container.transform) {
+            if (i == index) {
+                bool used = false;
 
-    void Update() {
-        float dt = Time.deltaTime;
+                var healing_component = child.gameObject.GetComponent<HealingItem>();
+                if (healing_component) {
+                    GameManagerScript.instance().MessageLog.NewMessage("Healed " + healing_component.amount.ToString() + " hp!", Color.green);
+                    controller.Heal(healing_component.amount);
+                    used = true;
+                }
+
+                if (used) {
+                    child.parent = null;
+                    Destroy(child.gameObject);
+                    Close3DInventory();
+                } else {
+                    GameManagerScript.instance().MessageLog.NewMessage("Cannot use this item!", Color.red);
+                }
+                break;
+            }
+            i++;
+        }
     }
 }

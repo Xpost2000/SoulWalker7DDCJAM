@@ -126,4 +126,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amount: 5
-  description: Healing Essence +5 HP
+  description: Ether +5 HP

@@ -1827,6 +1827,31 @@ MonoBehaviour:
       m_Action: Attack
       m_Flags: 0
     m_Flags: 0
+  confirm_use:
+    m_Name: Confirm_use
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: ba6de3a1-f527-48e3-b8fa-ad9ca0622c48
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: e693bce5-a10d-4c79-9446-0f46dcfc36db
+      m_Path: <Keyboard>/enter
+      m_Interactions: Press
+      m_Processors: 
+      m_Groups: 
+      m_Action: Confirm_use
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 68110bd7-dac5-402b-9374-e0afb6c934f4
+      m_Path: <XInputController>/buttonSouth
+      m_Interactions: Press
+      m_Processors: 
+      m_Groups: 
+      m_Action: Confirm_use
+      m_Flags: 0
+    m_Flags: 0
   pause_game:
     m_Name: Pause_game
     m_Type: 0
