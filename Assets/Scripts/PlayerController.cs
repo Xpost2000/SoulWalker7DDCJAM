@@ -18,7 +18,10 @@ public class PlayerController : MonoBehaviour
 
     public GenericActorController controller;
     public PunchableCamera camera;
+
+    // LOL this should be elsewhere but okay.
     public GameObject inventory_display_container;
+    public Canvas inventory_canvas_template_for_item;
 
     int selected_item_index = 0;
     public List<GameObject> items;
@@ -65,16 +68,25 @@ public class PlayerController : MonoBehaviour
 
         if (healing_component) {
             replica.GetComponent<HealingItem>().enabled = true;
+
+            var replica_canvas =
+                Instantiate(
+                    inventory_canvas_template_for_item,
+                    replica.transform
+                );
+            replica_canvas.transform.localPosition = Vector3.zero;
+
             // add a label I guess
             GameObject text = new GameObject("description");
-            text.transform.SetParent(replica.transform);
+            text.transform.SetParent(replica_canvas.transform);
             text.transform.localScale = new Vector3(1,1,1);
+            text.transform.localPosition = new Vector3(0, -2f, 0);
             TextMeshProUGUI text_data = text.AddComponent<TextMeshProUGUI>();
-            text_data.fontSize = 20;
-            text_data.text = "Hello World!";
+            text_data.fontSize = 32;
+            text_data.text = healing_component.description;
         }
 
-        replica.transform.localPosition = Vector3.zero;
+        replica.transform.localPosition = new Vector3(0.0f, -0.2f, 0.0f);
         replica.layer = LayerMask.NameToLayer("UI");
         items.Add(replica);
         print("Added " + replica + " to the inventory.");
@@ -121,8 +133,30 @@ public class PlayerController : MonoBehaviour
         inventory_display_container.SetActive(false);
     }
 
+    void ValidateItemIndexBounds() {
+        if (selected_item_index <= 0)
+            selected_item_index = 0;
+        else if (selected_item_index >= inventory_display_container.transform.childCount)
+            selected_item_index = inventory_display_container.transform.childCount-1;
+    }
+
+    // sets it based off the index
+    void Adjust3DInventoryChildrenLocation() {
+        int i = 0;
+        // space out each child.
+        foreach (Transform child in inventory_display_container.transform) {
+            child.localPosition = new Vector3(
+                ((i) - selected_item_index)*0.7f,
+                child.localPosition.y,
+                child.localPosition.z);
+            i++;
+        }
+    }
+
     public void Open3DInventory() {
         inventory_display_container.SetActive(true);
+        // position all items
+        Adjust3DInventoryChildrenLocation();
     }
 
     public void ToggleInventory() {
@@ -140,12 +174,25 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnTurnStart(InputAction.CallbackContext ctx) {
-        controller.Rotate((int)ctx.ReadValue<float>());
+        if (!InventoryActive()) {
+            controller.Rotate((int)ctx.ReadValue<float>());
+        }
     }
 
     void OnMovementStart(InputAction.CallbackContext ctx) {
-        var movement = ctx.ReadValue<Vector2>();
-        controller.MoveDirection(movement);
+        if (!InventoryActive()) {
+            var movement = ctx.ReadValue<Vector2>();
+            controller.MoveDirection(movement);
+        } else {
+            var movement = ctx.ReadValue<Vector2>();
+            if (movement.x >= 0.0f) {
+                selected_item_index += 1;
+            } else if (movement.x <= 0.0f) {
+                selected_item_index -= 1;
+            }
+            ValidateItemIndexBounds();
+            Adjust3DInventoryChildrenLocation();
+        }
     }
 
     void OnEnable() {EnableInput();}
