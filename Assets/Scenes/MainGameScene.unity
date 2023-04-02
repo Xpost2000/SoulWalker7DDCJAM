@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18355627, g: 0.22908889, b: 0.3055487, a: 1}
+  m_IndirectSpecularColor: {r: 0.17821996, g: 0.22314626, b: 0.30520746, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3270,6 +3270,7 @@ MonoBehaviour:
   ui_pause: {fileID: 2016923050}
   ui_gameover: {fileID: 335726972}
   ui_ingame: {fileID: 767790727}
+  first_scene: TestLevelScene
 --- !u!1 &1760617121
 GameObject:
   m_ObjectHideFlags: 0

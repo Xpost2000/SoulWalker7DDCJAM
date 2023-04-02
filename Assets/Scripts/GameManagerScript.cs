@@ -30,6 +30,8 @@ public class GameManagerScript : MonoBehaviour {
     public GameObject ui_gameover;
     public GameObject ui_ingame;
 
+    public string first_scene;
+
     public MessageLogPanel MessageLog {
         get {
             return message_log.GetComponent<MessageLogPanel>();
@@ -90,6 +92,8 @@ public class GameManagerScript : MonoBehaviour {
         State = GameState.Ingame;
 
         Application.targetFrameRate = target_framerate;
+
+        LoadLevel(first_scene);
     }
 
     public void TryToKillGame() {
@@ -105,7 +109,12 @@ public class GameManagerScript : MonoBehaviour {
 
     public void LoadLevel(string scene_name) {
         // TODO: not tested!
-        SceneManager.LoadScene(scene_name, LoadSceneMode.Additive);
+        var existing = SceneManager.GetSceneByName(scene_name);
+        if (existing == null || existing.isLoaded == false) {
+            SceneManager.LoadScene(scene_name, LoadSceneMode.Additive);
+        } else {
+            print("NOTE: scene already loaded!");
+        }
     }
 
     public static GameManagerScript instance() {
