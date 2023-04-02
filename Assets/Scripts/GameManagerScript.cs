@@ -23,6 +23,10 @@ public class GameManagerScript : MonoBehaviour {
     public GameObject player;
     public GameObject user_interface_container;
 
+    public GameObject ui_pause;
+    public GameObject ui_gameover;
+    public GameObject ui_ingame;
+
     private GameState m_state = GameState.None;
     public GameState State {
         get { return m_state; }
@@ -38,17 +42,17 @@ public class GameManagerScript : MonoBehaviour {
                     } break;
                     case GameState.GameOver: {
                         HideAllUIChildren();
-                        FindUI("UIGameoverCanvas").SetActive(true);
+                        ui_gameover.SetActive(true);
                         player.GetComponent<PlayerController>().DisableInput();
                     } break;
                     case GameState.Pause: {
                         HideAllUIChildren();
-                        FindUI("UIPauseMenuCanvas").SetActive(true);
+                        ui_pause.SetActive(true);
                         player.GetComponent<PlayerController>().DisableInput();
                     } break;
                     case GameState.Ingame: {
                         HideAllUIChildren();
-                        FindUI("UIGameplayCanvas").SetActive(true);
+                        ui_ingame.SetActive(true);
                         player.GetComponent<PlayerController>().EnableInput();
                     } break;
                     case GameState.MainMenu: {
@@ -73,8 +77,8 @@ public class GameManagerScript : MonoBehaviour {
 
     void Start() {
         print("Hi, I begin");
-        State = GameState.GameOver;
-        // State = GameState.Ingame;
+        // State = GameState.GameOver;
+        State = GameState.Ingame;
 
         Application.targetFrameRate = target_framerate;
     }

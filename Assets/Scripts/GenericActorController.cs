@@ -46,7 +46,9 @@ public class GenericActorController : MonoBehaviour {
       events
      */
     public delegate void OnHurt(int amount);
+    public delegate void OnDeath();
     public event OnHurt on_hurt;
+    public event OnDeath on_death;
     /*
       end events
      */
@@ -104,6 +106,10 @@ public class GenericActorController : MonoBehaviour {
     public void Hurt(int health) {
         this.health -= (health-this.defense);
         on_hurt?.Invoke(health);
+        if (this.health <= 0) {
+            // NOTE: account for two healthpools?
+            on_death?.Invoke();
+        }
     }
 
     public void Rotate(int direction) {

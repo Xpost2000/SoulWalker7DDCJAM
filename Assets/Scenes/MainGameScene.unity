@@ -1714,6 +1714,31 @@ MonoBehaviour:
       m_Action: Attack
       m_Flags: 0
     m_Flags: 0
+  pause_game:
+    m_Name: Pause_game
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 7cb85c3c-671c-4827-a32f-81098f292499
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: a590cb12-5121-4f1e-b052-fda248fe298b
+      m_Path: <Keyboard>/escape
+      m_Interactions: Press
+      m_Processors: 
+      m_Groups: 
+      m_Action: Pause_game
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 60d8c66d-c9e6-4921-9791-97da9abdbee5
+      m_Path: <Gamepad>/start
+      m_Interactions: Press
+      m_Processors: 
+      m_Groups: 
+      m_Action: Pause_game
+      m_Flags: 0
+    m_Flags: 0
   controller: {fileID: 0}
   camera: {fileID: 0}
 --- !u!54 &844404406
@@ -2939,6 +2964,9 @@ MonoBehaviour:
   target_framerate: 20
   player: {fileID: 844404400}
   user_interface_container: {fileID: 1770020270}
+  ui_pause: {fileID: 2016923050}
+  ui_gameover: {fileID: 335726972}
+  ui_ingame: {fileID: 767790727}
 --- !u!1 &1760617121
 GameObject:
   m_ObjectHideFlags: 0
@@ -3603,6 +3631,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7bc3756f71e067469272c0b276812f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resume_button: {fileID: 0}
+  quit_button: {fileID: 0}
+  return_to_desktop_button: {fileID: 0}
+  options_button: {fileID: 0}
 --- !u!1 &2025229007
 GameObject:
   m_ObjectHideFlags: 0
