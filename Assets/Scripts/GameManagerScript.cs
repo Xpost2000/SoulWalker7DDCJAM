@@ -32,6 +32,46 @@ public class GameManagerScript : MonoBehaviour {
 
     public string first_scene;
 
+    public float seconds_per_turn = 3.5f;
+    public int   turns_passed = 0;
+    private float current_turn_timer = 0.0f;
+
+    /*
+      Game Actors that need to think on a turn basis
+      should register to these callbacks on their own.
+
+      Remember to unsubscribe or something.
+    */
+    public delegate void OnTurnStart();
+    public delegate void OnTurnEnd();
+
+    public event OnTurnStart on_turn_start;
+    public event OnTurnEnd   on_turn_end;
+
+    public void UpdateTurnTimer(float dt) {
+        if (State == GameState.Ingame) {
+            if (current_turn_timer >= seconds_per_turn) {
+                InvokeNextTurn();
+            } else {
+                current_turn_timer += dt;
+            }
+        }
+    }
+
+    public void InvokeNextTurn() {
+        on_turn_end?.Invoke();
+        current_turn_timer = 0;
+        turns_passed += 1;
+        on_turn_start?.Invoke();
+
+        // just to make sure stuff works.
+        MessageLog.NewMessage(
+            "A turn has passed...",
+            Color.yellow
+        );
+    }
+
+
     public MessageLogPanel MessageLog {
         get {
             return message_log.GetComponent<MessageLogPanel>();
@@ -105,7 +145,14 @@ public class GameManagerScript : MonoBehaviour {
 #endif
     }
 
-    void Update() {}
+    void Update() {
+        // float dt = Time.deltaTime;
+        // UpdateTurnTimer(dt);
+    }
+    void FixedUpdate() {
+        float dt = Time.deltaTime;
+        UpdateTurnTimer(dt);
+    }
 
     public void LoadLevel(string scene_name) {
         // TODO: not tested!

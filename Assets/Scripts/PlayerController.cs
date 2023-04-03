@@ -156,6 +156,7 @@ public class PlayerController : MonoBehaviour
     void OnConfirmOrUse(InputAction.CallbackContext ctx) {
         if (InventoryActive()) {
             UseInventoryItem(selected_item_index);
+            GameManagerScript.instance().InvokeNextTurn();
         } else {
             // fire a raycast and see if we hit a door?
             // if a door is locked we'll check if we have the key item I suppose.
@@ -209,11 +210,14 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnAttack(InputAction.CallbackContext ctx) {
+        GameManagerScript.instance().InvokeNextTurn();
         controller.Hurt(10);
         // GameManagerScript.instance().MessageLog.NewMessage("Player attacks!", Color.white);
     }
 
     void OnTurnStart(InputAction.CallbackContext ctx) {
+        // NOTE: Turning yourself does not count as a turn action!
+        // GameManagerScript.instance().InvokeNextTurn();
         if (!InventoryActive()) {
             controller.Rotate((int)ctx.ReadValue<float>());
         }
@@ -223,6 +227,7 @@ public class PlayerController : MonoBehaviour
         if (!InventoryActive()) {
             var movement = ctx.ReadValue<Vector2>();
             controller.MoveDirection(movement);
+            GameManagerScript.instance().InvokeNextTurn();
         } else {
             var movement = ctx.ReadValue<Vector2>();
             if (movement.x >= 0.0f) {

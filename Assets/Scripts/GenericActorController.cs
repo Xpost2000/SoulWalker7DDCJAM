@@ -18,9 +18,10 @@ public enum AnimationType {
     Rotation
 };
 
+[System.Flags] // NOTE for trigger types that are deadly!
 public enum ActorState {
-    Soul,
-    Body,
+    Soul = 1,
+    Body = 2,
 };
 
 public class GenericActorController : MonoBehaviour {
