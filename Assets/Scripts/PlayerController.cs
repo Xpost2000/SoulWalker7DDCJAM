@@ -226,8 +226,9 @@ public class PlayerController : MonoBehaviour
     void OnMovementStart(InputAction.CallbackContext ctx) {
         if (!InventoryActive()) {
             var movement = ctx.ReadValue<Vector2>();
-            controller.MoveDirection(movement);
-            GameManagerScript.instance().InvokeNextTurn();
+            if (controller.MoveDirection(movement)) {
+                GameManagerScript.instance().InvokeNextTurn();
+            }
         } else {
             var movement = ctx.ReadValue<Vector2>();
             if (movement.x >= 0.0f) {

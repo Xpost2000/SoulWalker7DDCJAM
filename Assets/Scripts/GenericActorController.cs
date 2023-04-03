@@ -116,8 +116,8 @@ public class GenericActorController : MonoBehaviour {
         }
         return true;
     }
-    public void MoveDirection(Vector2 direction) {
-        if (anim_type != AnimationType.None) return;
+    public bool MoveDirection(Vector2 direction) {
+        if (anim_type != AnimationType.None) return false;
         var movement = direction;
         StartAnimation(AnimationType.Movement, ANIM_TIME_MOVEMENT);
 
@@ -146,6 +146,7 @@ public class GenericActorController : MonoBehaviour {
             }
         }
 
+        return true;
     }
 
     void OnTriggerEnter(Collider collider) {
@@ -251,11 +252,12 @@ public class GenericActorController : MonoBehaviour {
         }
     }
 
-    public void Rotate(int direction) {
-        if (anim_type != AnimationType.None) return;
+    public bool Rotate(int direction) {
+        if (anim_type != AnimationType.None) return false;
         StartAnimation(AnimationType.Rotation, ANIM_TIME_ROTATE);
         var turn = direction;
         logical_rotation += 90 * turn;
+        return true;
     }
 
     // Update is called once per frame
