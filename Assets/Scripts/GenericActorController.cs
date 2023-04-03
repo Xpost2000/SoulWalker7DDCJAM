@@ -145,9 +145,11 @@ public class GenericActorController : MonoBehaviour {
         var collider_object = collider.gameObject;
         if (collider_object.tag == "Pickup") {
             if (gameObject.tag == "Player") {
-                collider_object.GetComponent<ItemPickupGeneric>().InvokeOnTrigger(gameObject);
-                on_pickup?.Invoke(collider_object.GetComponent<ItemPickupGeneric>().reward_item);
-                print("Hi pickup!");
+                if (collider_object.GetComponent<ItemPickupGeneric>()) {
+                    collider_object.GetComponent<ItemPickupGeneric>().InvokeOnTrigger(gameObject);
+                    on_pickup?.Invoke(collider_object.GetComponent<ItemPickupGeneric>().reward_item);
+                    print("Hi pickup!");
+                }
             } else {
             }
         } else {

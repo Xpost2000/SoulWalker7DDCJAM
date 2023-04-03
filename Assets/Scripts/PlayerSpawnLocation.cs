@@ -12,7 +12,6 @@ public class PlayerSpawnLocation : MonoBehaviour
         print("Hi, I'm going to place the player at me!");
 
         GameManagerScript.instance().player.transform.position = transform.position;
-        
         GameManagerScript.instance().player.transform.rotation = transform.rotation;
 
         // Now I die!
