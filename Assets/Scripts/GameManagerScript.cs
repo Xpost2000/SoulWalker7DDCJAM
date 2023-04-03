@@ -152,22 +152,22 @@ public class GameManagerScript : MonoBehaviour {
     }
 
     void Update() {
-        // float dt = Time.deltaTime;
-        // UpdateTurnTimer(dt);
-    }
-    void FixedUpdate() {
         float dt = Time.deltaTime;
         UpdateTurnTimer(dt);
+    }
+    void FixedUpdate() {
+        // float dt = Time.deltaTime;
+        // UpdateTurnTimer(dt);
     }
 
     public void LoadLevel(string scene_name) {
         // TODO: not tested!
         var existing = SceneManager.GetSceneByName(scene_name);
-        // if (existing == null || existing.isLoaded == false) {
-        SceneManager.LoadScene(scene_name, LoadSceneMode.Additive);
-        // } else {
-        //     print("NOTE: scene already loaded!");
-        // }
+        if (existing == null || existing.isLoaded == false) {
+            SceneManager.LoadScene(scene_name, LoadSceneMode.Additive);
+        } else {
+            print("NOTE: scene already loaded!");
+        }
     }
 
     public void Restart() {
@@ -176,6 +176,7 @@ public class GameManagerScript : MonoBehaviour {
 
     public static GameManagerScript instance() {
         var result = GameObject.Find("MainGameManager?");
+        print(result);
         return result.GetComponent<GameManagerScript>();
     }
 }

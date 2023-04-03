@@ -25,15 +25,14 @@ public class UIMainMenuScript : MonoBehaviour
 
     void OnStart() {
         print("on start?");
-        GameManagerScript.instance().State = GameState.Ingame;
-        // and load the first state.
         GameManagerScript.instance().LoadFirstLevel();
+        GameManagerScript.instance().State = GameState.Ingame;
     }
 
     void OnQuit() {
         print("on quit");
         // should animate?
-        GameManagerScript.instance().State = GameState.MainMenu;
+        GameManagerScript.instance().TryToKillGame();
     }
 
     void OnReturnToDesktop() {

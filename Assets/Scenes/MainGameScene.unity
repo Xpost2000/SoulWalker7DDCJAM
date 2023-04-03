@@ -1247,10 +1247,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c9e155c6236df948aa4b1101842b446, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start_button: {fileID: 0}
-  quit_button: {fileID: 0}
-  return_to_desktop_button: {fileID: 0}
-  options_button: {fileID: 0}
+  start_button: {fileID: 1581483677}
+  quit_button: {fileID: 1090364024}
+  return_to_desktop_button: {fileID: 1716121931}
+  options_button: {fileID: 1144449839}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -4120,7 +4120,7 @@ GameObject:
   - component: {fileID: 1581483678}
   - component: {fileID: 1581483677}
   m_Layer: 0
-  m_Name: ResumeButton
+  m_Name: StartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
