@@ -20,6 +20,7 @@ public enum AnimationType {
 
 [System.Flags] // NOTE for trigger types that are deadly!
 public enum ActorState {
+    None = 0,
     Soul = 1,
     Body = 2,
 };
