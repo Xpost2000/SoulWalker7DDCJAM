@@ -65,10 +65,17 @@ public class GenericActorController : MonoBehaviour {
       end events
      */
 
-    // Start is called before the first frame update
+    public void SetLogicalPosition(Vector3 position) {
+        logical_position = position;
+    }
+
+    public void SetLogicalRotation(float angle) {
+        logical_rotation = angle;
+    }
+
     void Start() {
-        logical_position = transform.position;
-        logical_rotation = transform.eulerAngles.y;
+        SetLogicalPosition(transform.position);
+        SetLogicalRotation(transform.eulerAngles.y);
         max_health = health;
 
         if (max_soul_health == -1 ||
