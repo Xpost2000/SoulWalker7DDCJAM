@@ -4,25 +4,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIGameOverScript : MonoBehaviour
+public class UIMainMenuScript : MonoBehaviour
 {
-    public Button restart_button;
+    public Button start_button;
     public Button quit_button;
     public Button return_to_desktop_button;
+    public Button options_button;
 
     void Start() {
-        restart_button.onClick.AddListener(OnRestart);
+        start_button.onClick.AddListener(OnStart);
         quit_button.onClick.AddListener(OnQuit);
+        options_button.onClick.AddListener(OnOptions);
         return_to_desktop_button.onClick.AddListener(OnReturnToDesktop);
     }
 
-    void OnEnable() {
-        // begin my animation?
+    // Update is called once per frame
+    void Update() {
+        
     }
 
-    void OnRestart() {
-        print("on restart");
-        GameManagerScript.instance().Restart();
+    void OnStart() {
+        print("on start?");
+        GameManagerScript.instance().State = GameState.Ingame;
+        // and load the first state.
+        GameManagerScript.instance().LoadFirstLevel();
     }
 
     void OnQuit() {
@@ -36,5 +41,7 @@ public class UIGameOverScript : MonoBehaviour
         GameManagerScript.instance().TryToKillGame();
     }
 
-    void OnDisable() {} //???
+    void OnOptions() {
+        print("On options?");
+    }
 }

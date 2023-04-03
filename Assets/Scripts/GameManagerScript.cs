@@ -28,6 +28,7 @@ public class GameManagerScript : MonoBehaviour {
 
     public GameObject ui_pause;
     public GameObject ui_gameover;
+    public GameObject ui_mainmenu;
     public GameObject ui_ingame;
 
     public string first_scene;
@@ -107,6 +108,9 @@ public class GameManagerScript : MonoBehaviour {
                         player.GetComponent<PlayerController>().EnableInput();
                     } break;
                     case GameState.MainMenu: {
+                        HideAllUIChildren();
+                        ui_mainmenu.SetActive(true);
+                        player.GetComponent<PlayerController>().DisableInput();
                     } break;
                     default: {
                         print("should this be possible?");
@@ -126,14 +130,16 @@ public class GameManagerScript : MonoBehaviour {
         }
     }
 
+    public void LoadFirstLevel() {
+        LoadLevel(first_scene);
+    }
+
     void Start() {
         print("Hi, I begin");
         // State = GameState.GameOver;
-        State = GameState.Ingame;
+        State = GameState.MainMenu;
 
         Application.targetFrameRate = target_framerate;
-
-        LoadLevel(first_scene);
     }
 
     public void TryToKillGame() {
@@ -157,11 +163,15 @@ public class GameManagerScript : MonoBehaviour {
     public void LoadLevel(string scene_name) {
         // TODO: not tested!
         var existing = SceneManager.GetSceneByName(scene_name);
-        if (existing == null || existing.isLoaded == false) {
-            SceneManager.LoadScene(scene_name, LoadSceneMode.Additive);
-        } else {
-            print("NOTE: scene already loaded!");
-        }
+        // if (existing == null || existing.isLoaded == false) {
+        SceneManager.LoadScene(scene_name, LoadSceneMode.Additive);
+        // } else {
+        //     print("NOTE: scene already loaded!");
+        // }
+    }
+
+    public void Restart() {
+        SceneManager.LoadScene("MainGameScene", LoadSceneMode.Single);
     }
 
     public static GameManagerScript instance() {
