@@ -18,6 +18,7 @@ public class GenericWeaponAttackBehavior : MonoBehaviour {
     // and this makes -1 not a valid value. Which is
     // fine I guess.
     public int soul_damage = -1;
+    public bool must_go_through_body = true;
 
     void Start() {
         if (soul_damage == -1) soul_damage = physical_damage;
@@ -41,7 +42,11 @@ public class GenericWeaponAttackBehavior : MonoBehaviour {
         var victim_controller =
             victim.GetComponent<GenericActorController>();
 
-        victim_controller.HurtSoul(soul_damage);
         victim_controller.HurtBody(physical_damage);
+        victim_controller.HurtSoul(soul_damage);
+        if (weapon_data_script.holder.GetComponent<GenericActorController>().form == ActorState.Soul) {
+            // this makes soul mode much better at killing things.
+            victim_controller.HurtSoul(physical_damage);
+        }
     }
 }

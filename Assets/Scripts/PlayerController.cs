@@ -354,6 +354,8 @@ public class PlayerController : MonoBehaviour
 
         // making replicas. As usual.
         active_weapon = Instantiate(weapon);
+        if (active_weapon.GetComponent<CapsuleCollider>())
+            active_weapon.GetComponent<CapsuleCollider>().enabled = false;
         // grr prefab can't get itself.
         // so I'll have to "sanitize the object"
         {
