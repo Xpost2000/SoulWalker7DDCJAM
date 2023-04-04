@@ -361,8 +361,8 @@ public class PlayerController : MonoBehaviour
             active_weapon.GetComponent<ItemPickupGeneric>().enabled = false;
         }
 
+        active_weapon.transform.SetParent(gameObject.transform.Find("armpivot/handmaybe"));
         active_weapon.transform.localPosition = Vector3.zero;
-        active_weapon.transform.SetParent(gameObject.transform);
     }
 
     public void UseInventoryItem(int index) {
