@@ -9,9 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainGameScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/TestLevelScene.unity
+    path: Assets/Scenes/Stages/TestLevelScene.unity
     guid: b126738021605f546a089dbfed8445ff
   - enabled: 1
-    path: Assets/Scenes/TestLevelScene2.unity
+    path: Assets/Scenes/Stages/TestLevelScene2.unity
     guid: 004efc91d112daa49b90c6c2eddad4b0
   m_configObjects: {}

@@ -9,6 +9,17 @@ public class UIGameplayScript : MonoBehaviour
     public GameObject player_object;
     public GameObject hp_text_target;
     public GameObject existence_text_target;
+    public GameObject display_prompt_target;
+
+    public void EnablePrompt(string settext) {
+        display_prompt_target.SetActive(true);
+        var text = display_prompt_target.GetComponent<TextMeshProUGUI>();
+        text.text = settext;
+    }
+
+    public void DisablePrompt() {
+        display_prompt_target.SetActive(false);
+    }
 
     void UpdateHPText() {
         var player_actor_controller = player_object.GetComponent<GenericActorController>();

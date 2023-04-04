@@ -153,11 +153,30 @@ public class GenericActorController : MonoBehaviour {
         var collider_object = collider.gameObject;
         if (collider_object.tag == "Pickup") {
             if (gameObject.tag == "Player") {
-                if (collider_object.GetComponent<ItemPickupGeneric>()) {
-                    collider_object.GetComponent<ItemPickupGeneric>().InvokeOnTrigger(gameObject);
-                    on_pickup?.Invoke(collider_object.GetComponent<ItemPickupGeneric>().reward_item);
+                var pickup_component = collider_object.GetComponent<ItemPickupGeneric>();
+                var body_pickup_component = collider_object.GetComponent<BodyPickupScript>();
+
+                if (body_pickup_component) {
+                    print("display body pickup prompt");
+                } else if (pickup_component) {
+                    pickup_component.InvokeOnTrigger(gameObject);
+                    on_pickup?.Invoke(pickup_component.reward_item);
                     print("Hi pickup!");
                 }
+            } else {
+            }
+        } else {
+        }
+    }
+
+    void OnTriggerExit(Collider collider) {
+        var collider_object = collider.gameObject;
+        if (collider_object.tag == "Pickup") {
+            if (gameObject.tag == "Player") {
+                var body_pickup_component = collider_object.GetComponent<BodyPickupScript>();
+                if (body_pickup_component) {
+                    print("disable body pickup prompt");
+                } 
             } else {
             }
         } else {
