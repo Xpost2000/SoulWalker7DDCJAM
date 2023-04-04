@@ -19,6 +19,15 @@ struct ActivePrompt {
     public GameObject subject;
 };
 
+public static class GameObjectExtension {
+    public static void SetLayerRecursively(this GameObject obj, LayerMask mask) {
+        obj.layer = mask;
+        foreach (Transform child in obj.transform) {
+            child.gameObject.SetLayerRecursively(mask);
+        }
+    }
+}
+
 public class PlayerController : MonoBehaviour
 {
     public InputAction movement_action;
@@ -78,6 +87,8 @@ public class PlayerController : MonoBehaviour
         var healing_component = what_item.GetComponent<HealingItem>();
         if (healing_component) {
             GameManagerScript.instance().MessageLog.NewMessage("Picked up an ether!", Color.green);
+        } else {
+            GameManagerScript.instance().MessageLog.NewMessage("Picked up an item!", Color.green);
         }
 
         /*
@@ -85,31 +96,34 @@ public class PlayerController : MonoBehaviour
           whatever the hell this is.
         */
         var replica = Instantiate(what_item, inventory_display_container.transform);
-        replica.GetComponent<CapsuleCollider>().enabled = false;
+        
+        if (replica.GetComponent<CapsuleCollider>())
+            replica.GetComponent<CapsuleCollider>().enabled = false;
+
         replica.GetComponent<ItemPickupGeneric>().enabled = true;
 
         if (healing_component) {
             replica.GetComponent<HealingItem>().enabled = true;
-
-            var replica_canvas =
-                Instantiate(
-                    inventory_canvas_template_for_item,
-                    replica.transform
-                );
-            replica_canvas.transform.localPosition = Vector3.zero;
-
-            // add a label I guess
-            GameObject text = new GameObject("description");
-            text.transform.SetParent(replica_canvas.transform);
-            text.transform.localScale = new Vector3(1,1,1);
-            text.transform.localPosition = new Vector3(0, -2f, 0);
-            TextMeshProUGUI text_data = text.AddComponent<TextMeshProUGUI>();
-            text_data.fontSize = 32;
-            text_data.text = pickup_component.description;
         }
 
+        var replica_canvas =
+            Instantiate(
+                inventory_canvas_template_for_item,
+                replica.transform
+            );
+        replica_canvas.transform.localPosition = Vector3.zero;
+
+        // add a label I guess
+        GameObject text = new GameObject("description");
+        text.transform.SetParent(replica_canvas.transform);
+        text.transform.localScale = new Vector3(1,1,1);
+        text.transform.localPosition = new Vector3(0, -2f, 0);
+        TextMeshProUGUI text_data = text.AddComponent<TextMeshProUGUI>();
+        text_data.fontSize = 32;
+        text_data.text = pickup_component.description;
+
         replica.transform.localPosition = new Vector3(0.0f, -0.2f, 0.0f);
-        replica.layer = LayerMask.NameToLayer("UI");
+        replica.SetLayerRecursively(LayerMask.NameToLayer("UI"));
         items.Add(replica);
         print("Added " + replica + " to the inventory.");
     }
@@ -163,7 +177,15 @@ public class PlayerController : MonoBehaviour
         controller.on_death += OnDeath;
 
         // Should be a list of prefabs afaik
-        items = new List<GameObject>();
+        if (items == null) items = new List<GameObject>();
+        else {
+            print("Already has items?");
+            // sync it up with the "display" inventory
+            // cause this is weird.
+            foreach (GameObject existing_item in items) {
+                OnItemPickup(existing_item);
+            }
+        }
         Close3DInventory();
     }
 
@@ -252,7 +274,7 @@ public class PlayerController : MonoBehaviour
         // space out each child.
         foreach (Transform child in inventory_display_container.transform) {
             child.localPosition = new Vector3(
-                ((i) - selected_item_index)*0.7f,
+                ((i) - selected_item_index)*1.0f,
                 child.localPosition.y,
                 child.localPosition.z);
             i++;
