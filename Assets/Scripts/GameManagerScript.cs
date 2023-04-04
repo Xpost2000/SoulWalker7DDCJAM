@@ -59,6 +59,14 @@ public class GameManagerScript : MonoBehaviour {
         }
     }
 
+    public void EnablePrompt(string settext) {
+        ui_ingame.GetComponent<UIGameplayScript>().EnablePrompt(settext);
+    }
+
+    public void DisablePrompt() {
+        ui_ingame.GetComponent<UIGameplayScript>().DisablePrompt();
+    }
+
     public void InvokeNextTurn() {
         on_turn_end?.Invoke();
         current_turn_timer = 0;

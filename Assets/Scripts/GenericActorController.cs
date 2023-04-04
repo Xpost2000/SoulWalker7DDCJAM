@@ -30,16 +30,14 @@ public class GenericActorController : MonoBehaviour {
     private float   logical_rotation;
     public ActorState form;
 
-    // TODO: add considerations for soul mode since all entities can go into spirit mode
-
-    public int max_health = 20;
-    public int health = 20;
+    public int max_health = 25;
+    public int health = 25;
     public int max_soul_health = -1;
     public int soul_health = -1;
 
     // this changes in soul mode.
     // depends on the player.
-    public int defense = 5;
+    public int defense = 2;
 
     /* animation data */
     private AnimationType anim_type = AnimationType.None;
@@ -57,8 +55,6 @@ public class GenericActorController : MonoBehaviour {
      */
     public delegate void OnHurt(int amount, ActorState damage_form);
     public delegate void OnDeath(ActorState death_form);
-    public delegate void OnPickup(GameObject item);
-    public event OnPickup on_pickup;
     public event OnHurt on_hurt;
     public event OnDeath on_death;
     /*
@@ -149,40 +145,6 @@ public class GenericActorController : MonoBehaviour {
         return true;
     }
 
-    void OnTriggerEnter(Collider collider) {
-        var collider_object = collider.gameObject;
-        if (collider_object.tag == "Pickup") {
-            if (gameObject.tag == "Player") {
-                var pickup_component = collider_object.GetComponent<ItemPickupGeneric>();
-                var body_pickup_component = collider_object.GetComponent<BodyPickupScript>();
-
-                if (body_pickup_component) {
-                    print("display body pickup prompt");
-                } else if (pickup_component) {
-                    pickup_component.InvokeOnTrigger(gameObject);
-                    on_pickup?.Invoke(pickup_component.reward_item);
-                    print("Hi pickup!");
-                }
-            } else {
-            }
-        } else {
-        }
-    }
-
-    void OnTriggerExit(Collider collider) {
-        var collider_object = collider.gameObject;
-        if (collider_object.tag == "Pickup") {
-            if (gameObject.tag == "Player") {
-                var body_pickup_component = collider_object.GetComponent<BodyPickupScript>();
-                if (body_pickup_component) {
-                    print("disable body pickup prompt");
-                } 
-            } else {
-            }
-        } else {
-        }
-    }
-
     public void HealSoul(int health) {
         this.soul_health += health;
         if (this.soul_health > this.max_soul_health) {
@@ -193,6 +155,25 @@ public class GenericActorController : MonoBehaviour {
         this.health += health;
         if (this.health > this.max_health) {
             this.health = this.max_health;
+        }
+    }
+
+    public void EquipBody(GameObject body_object) {
+        if (form != ActorState.Body) {
+            var body = body_object.GetComponent<BodyPickupScript>();
+            health = body.health;
+            max_health = body.max_health;
+
+            Destroy(body_object);
+            form = ActorState.Body;
+        }
+    }
+
+    public void UnequipBody() {
+        // count as a body death
+        if (form != ActorState.Soul) {
+            health = max_health = 0;
+            form = ActorState.Soul;
         }
     }
 

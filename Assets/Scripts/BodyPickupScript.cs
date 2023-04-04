@@ -16,12 +16,11 @@ using UnityEngine;
 */
 public class BodyPickupScript : MonoBehaviour
 {
-    public string description = "tough body";
     public int max_health = 20;
-    int health;
+    public int health = -1;
 
     void Start() {
-        
+        if (health == -1) health = max_health;
     }
 
     void Update() {
@@ -34,5 +33,9 @@ public class BodyPickupScript : MonoBehaviour
 
     void OnTriggerExit(Collider collider) {
         // ?
+    }
+
+    public string PromptString() {
+        return "enter body form (" + health.ToString() + "/" + max_health.ToString() + ")?";
     }
 }

@@ -9,6 +9,15 @@ using TMPro;
   This isn't technically just a controller. A lot of the
   logic is also here. I know it's kinda dumb
  */
+struct ActivePrompt {
+    public enum Type{
+        None,
+        Body,
+        Activatable, // doors or keys
+    };
+    public Type type;
+    public GameObject subject;
+};
 
 public class PlayerController : MonoBehaviour
 {
@@ -25,9 +34,11 @@ public class PlayerController : MonoBehaviour
     // LOL this should be elsewhere but okay.
     public GameObject inventory_display_container;
     public Canvas inventory_canvas_template_for_item;
-
-    int selected_item_index = 0;
     public List<GameObject> items;
+
+    private int selected_item_index = 0;
+
+    private ActivePrompt prompt;
 
     public void DisableInput() {
         movement_action.Disable();
@@ -99,6 +110,39 @@ public class PlayerController : MonoBehaviour
         print("Added " + replica + " to the inventory.");
     }
 
+    void OnTriggerEnter(Collider collider) {
+        var collider_object = collider.gameObject;
+        if (collider_object.tag == "Pickup") {
+            var pickup_component = collider_object.GetComponent<ItemPickupGeneric>();
+            var body_pickup_component = collider_object.GetComponent<BodyPickupScript>();
+
+            if (body_pickup_component) {
+                GameManagerScript.instance().EnablePrompt(
+                    body_pickup_component.PromptString()
+                );
+                prompt.type = ActivePrompt.Type.Body;
+                prompt.subject = collider_object;
+            } else if (pickup_component) {
+                pickup_component.InvokeOnTrigger(gameObject);
+                OnItemPickup(pickup_component.reward_item);
+                print("Hi pickup!");
+            }
+        } else {
+        }
+    }
+
+    void OnTriggerExit(Collider collider) {
+        var collider_object = collider.gameObject;
+        if (collider_object.tag == "Pickup") {
+            var body_pickup_component = collider_object.GetComponent<BodyPickupScript>();
+            if (body_pickup_component) {
+                GameManagerScript.instance().DisablePrompt();
+                prompt.type = ActivePrompt.Type.None;
+            } 
+        } else {
+        }
+    }
+
     void Start() {
         movement_action.started += OnMovementStart;
         turn_view.started += OnTurnStart;
@@ -112,7 +156,6 @@ public class PlayerController : MonoBehaviour
 
         controller.on_hurt += OnHurt;
         controller.on_death += OnDeath;
-        controller.on_pickup += OnItemPickup;
 
         // Should be a list of prefabs afaik
         items = new List<GameObject>();
@@ -158,8 +201,21 @@ public class PlayerController : MonoBehaviour
             UseInventoryItem(selected_item_index);
             GameManagerScript.instance().InvokeNextTurn();
         } else {
+            switch (prompt.type) {
+                case ActivePrompt.Type.Body: {
+                    print("Equipping a body.");
+                    GameManagerScript.instance().MessageLog.NewMessage("Equipped a new body!", Color.green);
+                    controller.EquipBody(prompt.subject);
+                } break;
+                case ActivePrompt.Type.Activatable: {
+                    print("Use activatable?");
+                } break;
+                default: {} break;
+            }
             // fire a raycast and see if we hit a door?
             // if a door is locked we'll check if we have the key item I suppose.
+            GameManagerScript.instance().DisablePrompt();
+            prompt.type = ActivePrompt.Type.None;
         }
     }
 
