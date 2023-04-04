@@ -244,24 +244,28 @@ public class GenericActorController : MonoBehaviour {
     }
 
     public void HurtSoul(int health) {
-        int actual_damage = health-this.defense/2;
-        this.soul_health -= (actual_damage);
-        on_hurt?.Invoke(actual_damage, ActorState.Soul);
-        if (this.soul_health <= 0) {
-            on_death?.Invoke(ActorState.Soul);
+        if (this.soul_health > 0) {
+            int actual_damage = health-this.defense/2;
+            this.soul_health -= (actual_damage);
+            on_hurt?.Invoke(actual_damage, ActorState.Soul);
+            if (this.soul_health <= 0) {
+                on_death?.Invoke(ActorState.Soul);
+            }
         }
     }
 
     public void HurtBody(int health) {
-        int actual_damage = health-this.defense;
+        if (this.health > 0) {
+            int actual_damage = health-this.defense;
 
-        // min damage is 1, 0 damage should be impossible.
-        if (actual_damage <= 0) actual_damage = 1;
+            // min damage is 1, 0 damage should be impossible.
+            if (actual_damage <= 0) actual_damage = 1;
 
-        this.health -= (actual_damage);
-        on_hurt?.Invoke(actual_damage, ActorState.Body);
-        if (this.health <= 0) {
-            on_death?.Invoke(ActorState.Body);
+            this.health -= (actual_damage);
+            on_hurt?.Invoke(actual_damage, ActorState.Body);
+            if (this.health <= 0) {
+                on_death?.Invoke(ActorState.Body);
+            }
         }
     }
 
