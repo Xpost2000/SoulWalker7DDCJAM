@@ -23,6 +23,8 @@ public class WeaponDataScript : MonoBehaviour
     // can modify the amount of damage we want to do.
     // or do other stuff
     public delegate void OnDamageFire(GameObject victim);
+    public delegate bool OnProjectileDamageFire(GameObject original_projectile);
+    public event OnProjectileDamageFire on_projectile_fire;
     public event OnDamageFire on_attack_damage;
     public event OnDamageFire on_attack_hit; // if you want to hit anything that isn't a controller object.
 
@@ -33,9 +35,21 @@ public class WeaponDataScript : MonoBehaviour
 
     void Attack() {
         if (projectile != null) {
+            // projectile path.
+            // ignores 90% of this data lol
             GameManagerScript.instance().MessageLog.NewMessage(
                 gameObject.name + " should be shooting stuff!", Color.white
             );
+            bool? result = on_projectile_fire?.Invoke(projectile);
+            if (result != null && result == true) {
+                // allow firing the original projectile using the
+                // normal script.
+                GameManagerScript.instance().MessageLog.NewMessage(
+                    "Overridden projectile behavior!", Color.yellow
+                );
+            } else {
+                // disallow, the callback handled it.
+            }
         } else {
             // melee path
             if (holder == null) {
