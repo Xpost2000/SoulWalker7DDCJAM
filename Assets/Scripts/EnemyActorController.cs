@@ -77,8 +77,4 @@ public class EnemyActorController : MonoBehaviour
             on_incapacitate?.Invoke();
         }
     }
-
-    void Update() {
-        
-    }
 }

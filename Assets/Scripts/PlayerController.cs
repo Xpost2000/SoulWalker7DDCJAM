@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour
       Yeah I don't really think it's a great idea either but this works I guess.
      */
     void OnItemPickup(GameObject what_item) {
+        var pickup_component = what_item.GetComponent<ItemPickupGeneric>();
         var healing_component = what_item.GetComponent<HealingItem>();
         if (healing_component) {
             GameManagerScript.instance().MessageLog.NewMessage("Picked up an ether!", Color.green);
@@ -104,7 +105,7 @@ public class PlayerController : MonoBehaviour
             text.transform.localPosition = new Vector3(0, -2f, 0);
             TextMeshProUGUI text_data = text.AddComponent<TextMeshProUGUI>();
             text_data.fontSize = 32;
-            text_data.text = healing_component.description;
+            text_data.text = pickup_component.description;
         }
 
         replica.transform.localPosition = new Vector3(0.0f, -0.2f, 0.0f);

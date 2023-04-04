@@ -15,6 +15,7 @@ public class ItemPickupGeneric : MonoBehaviour
 {
     public delegate void OnPickup(GameObject actorToAward, GameObject item);
     public GameObject reward_item;
+    public string description="itemname";
     public event OnPickup on_pickup;
 
     private float start_y;

@@ -9,7 +9,6 @@ public class HealingItem : MonoBehaviour
 {
     // Start is called before the first frame update
     public int amount;
-    public string description;
 
     void Start() {
         
