@@ -245,6 +245,7 @@ public class GenericActorController : MonoBehaviour {
 
     public void HurtSoul(int health) {
         if (health > 0) {
+            print("Hurt soul!");
             if (this.soul_health > 0) {
                 int actual_damage = health-this.defense/2;
                 this.soul_health -= (actual_damage);
@@ -261,6 +262,7 @@ public class GenericActorController : MonoBehaviour {
     public void HurtBody(int health) {
         if (health > 0) {
             if (this.health > 0) {
+                print("Hurt body!");
                 int actual_damage = health-this.defense;
 
                 // min damage is 1, 0 damage should be impossible.

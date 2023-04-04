@@ -31,6 +31,8 @@ public class EnemyActorController : MonoBehaviour
 
     void Start() {
         controller = GetComponent<GenericActorController>();
+        controller.on_hurt += OnHurt;
+        controller.on_death += OnDeath;
         GameManagerScript.instance().on_turn_start += OnTurnStart;
         GameManagerScript.instance().on_turn_end += OnTurnEnd;
     }

@@ -33,7 +33,7 @@ public class WeaponDataScript : MonoBehaviour
         
     }
 
-    void Attack() {
+    public void Attack() {
         if (projectile != null) {
             // projectile path.
             // ignores 90% of this data lol
@@ -67,25 +67,57 @@ public class WeaponDataScript : MonoBehaviour
             RaycastHit[] hits =
                 Physics.RaycastAll(holder.transform.position, holder.transform.forward, distance);
 
+            print("Beginning raycasts");
             foreach (RaycastHit hit in hits) {
+                print(hit);
                 var collider = hit.collider;
                 var collider_gameObject = hit.collider.gameObject;
 
-                if (collider_gameObject == holder) continue;
+                print(collider_gameObject);
+                print(collider_gameObject.name);
+                if (collider_gameObject == holder) {
+                    print("hit myself.");
+                    continue;
+                }
                 else {
                     var controller_component = collider_gameObject.GetComponent<GenericActorController>();
                     if (controller_component) {
+                        print("Okay, hurtin!");
                         on_attack_damage?.Invoke(collider_gameObject);
                     }
                     on_attack_hit?.Invoke(collider_gameObject);
                 }
             }
+
+            // NOTE: only players have to do the animation! Enemies aren't using
+            // weapons and are just magicking stuff from nowhere!
         }
+        // StartAnimation();
     }
+
+
+    // NOTE:
+    // err, I am noticing I probably should use Coroutines
+    // however this is what I'm more used to doing...
+
 
     // Update is called once per frame
     void Update()
     {
-        
+        // a player should always have this.
+        // var armpivot = holder.transform.Find("armpivot");
+        // var handpivot = holder.transform.Find("armpivot/handmaybe");
+
+        if (projectile != null) {
+            // Ranged animation which is just a kickback animtion
+            // TODO
+        } else {
+            switch (melee_anim_type) {
+                // for now use the same animation to verify I can do it.
+                case MeleeAnimType.Sword:
+                case MeleeAnimType.Spear: {
+                } break;
+            }
+        }
     }
 }

@@ -170,7 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 0}
   projectile: {fileID: 0}
-  distance: 1
+  distance: 3
   melee_anim_type: 0
 --- !u!114 &7548316754830015854
 MonoBehaviour:

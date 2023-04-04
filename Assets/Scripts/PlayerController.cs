@@ -307,8 +307,14 @@ public class PlayerController : MonoBehaviour
 
     void OnAttack(InputAction.CallbackContext ctx) {
         GameManagerScript.instance().InvokeNextTurn();
-        controller.Hurt(10);
-        // GameManagerScript.instance().MessageLog.NewMessage("Player attacks!", Color.white);
+        if (active_weapon != null) {
+            GameManagerScript.instance().MessageLog.NewMessage("Player attacks!", Color.white);
+            var weapon_component = active_weapon.GetComponent<WeaponDataScript>();
+            weapon_component.Attack();
+        } else {
+            GameManagerScript.instance().MessageLog.NewMessage("No weapon! Cannot attack!", Color.red);
+        }
+        // controller.Hurt(10);
     }
 
     void OnTurnStart(InputAction.CallbackContext ctx) {
@@ -363,6 +369,10 @@ public class PlayerController : MonoBehaviour
 
         active_weapon.transform.SetParent(gameObject.transform.Find("armpivot/handmaybe"));
         active_weapon.transform.localPosition = Vector3.zero;
+        {
+            var weapon_component = active_weapon.GetComponent<WeaponDataScript>();
+            weapon_component.holder = gameObject;
+        }
     }
 
     public void UseInventoryItem(int index) {

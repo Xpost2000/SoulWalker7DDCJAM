@@ -28,6 +28,8 @@ public class GenericWeaponAttackBehavior : MonoBehaviour {
     }
 
     void OnDestroy() {
+        weapon_data_script.on_attack_damage -= OnDamageHitEntity;
+        weapon_data_script.on_attack_hit    -= OnDamageHitAny;
     }
 
     void OnDamageHitAny(GameObject victim) {
@@ -35,6 +37,7 @@ public class GenericWeaponAttackBehavior : MonoBehaviour {
     }
 
     void OnDamageHitEntity(GameObject victim) {
+        print("I'm going to hurt someone!");
         var victim_controller =
             victim.GetComponent<GenericActorController>();
 
