@@ -53,6 +53,10 @@ public class EnemyActorController : MonoBehaviour
 
         if (incapacitation_turns == 0) {
             on_incapacitate_recover?.Invoke();
+            if ((death_if_form_dies & ActorState.Soul) != 0)
+                controller.health = controller.max_health;
+            if ((death_if_form_dies & ActorState.Body) != 0)
+                controller.soul_health = controller.max_soul_health;
         }
     }
 

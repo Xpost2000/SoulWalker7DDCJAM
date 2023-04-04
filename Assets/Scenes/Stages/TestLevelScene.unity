@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 17346869}
   - component: {fileID: 17346873}
   - component: {fileID: 17346874}
+  - component: {fileID: 17346875}
   m_Layer: 0
   m_Name: '"Sword"'
   m_TagString: Untagged
@@ -248,6 +249,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: add1308cb9d1fd44e94253ef5c9c53ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holder: {fileID: 0}
+  projectile: {fileID: 0}
+  distance: 1
+  melee_anim_type: 0
+--- !u!114 &17346875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17346868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86edfcf01c2246549b88d28b56679f99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  physical_damage: 10
+  soul_damage: -1
 --- !u!1001 &26052909
 PrefabInstance:
   m_ObjectHideFlags: 0
