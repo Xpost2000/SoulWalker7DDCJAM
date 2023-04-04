@@ -50,6 +50,8 @@ public class PlayerController : MonoBehaviour
 
     private ActivePrompt prompt;
 
+    GameObject active_weapon;
+
     public void DisableInput() {
         movement_action.Disable();
         turn_view.Disable();
@@ -339,22 +341,60 @@ public class PlayerController : MonoBehaviour
     void OnDisable() {DisableInput();}
 
     // bad code or something
+    public void EquipWeapon(GameObject weapon) {
+        if (active_weapon != null) {
+            Destroy(active_weapon);
+        }
+
+        // making replicas. As usual.
+        active_weapon = Instantiate(weapon);
+        // grr prefab can't get itself.
+        // so I'll have to "sanitize the object"
+        {
+            // remove the replica canvas
+            //..................................... Yeah I know it's dumb
+            var canvas = active_weapon.transform.Find("ReplicaCanvas(Clone)");
+            print(canvas);
+            if (canvas) Destroy(canvas.gameObject);
+
+            // stop spinning!
+            active_weapon.GetComponent<ItemPickupGeneric>().enabled = false;
+        }
+
+        active_weapon.transform.localPosition = Vector3.zero;
+        active_weapon.transform.SetParent(gameObject.transform);
+    }
+
     public void UseInventoryItem(int index) {
         int i = 0;
         foreach (Transform child in inventory_display_container.transform) {
             if (i == index) {
                 bool used = false;
+                bool destroy = false;
 
+                var item_data = child.gameObject.GetComponent<ItemPickupGeneric>();
                 var healing_component = child.gameObject.GetComponent<HealingItem>();
+
                 if (healing_component) {
                     GameManagerScript.instance().MessageLog.NewMessage("Healed " + healing_component.amount.ToString() + " hp!", Color.green);
                     controller.Heal(healing_component.amount);
                     used = true;
+                    destroy = true;
+                }
+
+                var weapon_component = child.gameObject.GetComponent<WeaponDataScript>();
+                if (weapon_component)  {
+                    GameManagerScript.instance().MessageLog.NewMessage("Equipping " +  item_data.description + "!", Color.green);
+                    EquipWeapon(item_data.reward_item);
+                    used = true;
+                    destroy = false;
                 }
 
                 if (used) {
-                    child.parent = null;
-                    Destroy(child.gameObject);
+                    if (destroy) {
+                        child.parent = null;
+                        Destroy(child.gameObject);
+                    } 
                     Close3DInventory();
                 } else {
                     GameManagerScript.instance().MessageLog.NewMessage("Cannot use this item!", Color.red);
