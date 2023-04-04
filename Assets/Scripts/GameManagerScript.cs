@@ -21,6 +21,9 @@ public class GameManagerScript : MonoBehaviour {
     public bool interpolate_animations = true;
     public int target_framerate = 20; // crunchy framerate.
 
+    // prefabs
+    public GameObject body_pickup_prefab;
+
     // handle game state
     public GameObject player;
     public GameObject user_interface_container;

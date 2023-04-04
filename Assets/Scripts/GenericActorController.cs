@@ -158,7 +158,7 @@ public class GenericActorController : MonoBehaviour {
         }
     }
 
-    public void EquipBody(GameObject body_object) {
+    public bool EquipBody(GameObject body_object) {
         if (form != ActorState.Body) {
             var body = body_object.GetComponent<BodyPickupScript>();
             health = body.health;
@@ -166,15 +166,36 @@ public class GenericActorController : MonoBehaviour {
 
             Destroy(body_object);
             form = ActorState.Body;
+            return true;
         }
+        return false;
     }
 
-    public void UnequipBody() {
+    public bool UnequipBody() {
         // count as a body death
         if (form != ActorState.Soul) {
+            var replica = Instantiate(GameManagerScript.instance().body_pickup_prefab);
+            replica.GetComponent<BodyPickupScript>().health = health;
+            replica.GetComponent<BodyPickupScript>().max_health = max_health;
+
+            RaycastHit raycast_result;
+
+            // Create a body where we currently are.
+            replica.transform.position = transform.position;
+            if (Physics.Raycast(logical_position, -transform.up, out raycast_result)) {
+                replica.transform.position =  new Vector3(
+                    transform.position.x,
+                    raycast_result.point.y,
+                    transform.position.z
+                );
+            }
+
             health = max_health = 0;
             form = ActorState.Soul;
+            return true;
         }
+
+        return false;
     }
 
     // generic heal
@@ -233,6 +254,10 @@ public class GenericActorController : MonoBehaviour {
 
     public void HurtBody(int health) {
         int actual_damage = health-this.defense;
+
+        // min damage is 1, 0 damage should be impossible.
+        if (actual_damage <= 0) actual_damage = 1;
+
         this.health -= (actual_damage);
         on_hurt?.Invoke(actual_damage, ActorState.Body);
         if (this.health <= 0) {

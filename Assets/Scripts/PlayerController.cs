@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     public InputAction confirm_use;
     public InputAction open_inventory;
     public InputAction pause_game;
+    public InputAction drop_body;
 
     public GenericActorController controller;
     public PunchableCamera camera;
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour
         turn_view.Disable();
         attack.Disable();
         confirm_use.Disable();
+        drop_body.Disable();
         open_inventory.Enable();
     }
     public void EnableInput() {
@@ -52,6 +54,7 @@ public class PlayerController : MonoBehaviour
         turn_view.Enable();
         attack.Enable();
         confirm_use.Enable();
+        drop_body.Enable();
         open_inventory.Enable();
         // NOTE: this is never disabled
         pause_game.Enable();
@@ -145,6 +148,7 @@ public class PlayerController : MonoBehaviour
 
     void Start() {
         movement_action.started += OnMovementStart;
+        drop_body.started += OnDropBody;
         turn_view.started += OnTurnStart;
         attack.started += OnAttack;
         pause_game.started += OnPauseGame;
@@ -196,6 +200,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void OnDropBody(InputAction.CallbackContext ctx) {
+        if (controller.UnequipBody()) {
+            GameManagerScript.instance().MessageLog.NewMessage("Unequipping body.", Color.red);
+        } else {
+            GameManagerScript.instance().MessageLog.NewMessage("No body to unequip!", Color.red);
+        }
+    }
+
     void OnConfirmOrUse(InputAction.CallbackContext ctx) {
         if (InventoryActive()) {
             UseInventoryItem(selected_item_index);
@@ -204,8 +216,11 @@ public class PlayerController : MonoBehaviour
             switch (prompt.type) {
                 case ActivePrompt.Type.Body: {
                     print("Equipping a body.");
-                    GameManagerScript.instance().MessageLog.NewMessage("Equipped a new body!", Color.green);
-                    controller.EquipBody(prompt.subject);
+                    if (controller.EquipBody(prompt.subject)) {
+                        GameManagerScript.instance().MessageLog.NewMessage("Equipped a new body!", Color.green);
+                    } else {
+                        GameManagerScript.instance().MessageLog.NewMessage("Cannot equip body while wearing one!", Color.red);
+                    }
                 } break;
                 case ActivePrompt.Type.Activatable: {
                     print("Use activatable?");
