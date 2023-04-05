@@ -4209,7 +4209,7 @@ MonoBehaviour:
   ui_gameover: {fileID: 335726972}
   ui_mainmenu: {fileID: 384615391}
   ui_ingame: {fileID: 767790727}
-  first_scene: Stage4
+  first_scene: Stage1
   seconds_per_turn: 3.5
   turns_passed: 0
 --- !u!1 &1760617121
@@ -5786,6 +5786,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BackGroundColor.r
       value: 0.11480952
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760885432741431964, guid: fcfb1029c191eb5488d62a212edd8c74,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760885432741431964, guid: fcfb1029c191eb5488d62a212edd8c74,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760885432741432034, guid: fcfb1029c191eb5488d62a212edd8c74,
+        type: 3}
+      propertyPath: m_Range
+      value: 16.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760885432741432034, guid: fcfb1029c191eb5488d62a212edd8c74,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.69411767
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760885432741432034, guid: fcfb1029c191eb5488d62a212edd8c74,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760885432741432034, guid: fcfb1029c191eb5488d62a212edd8c74,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.9144615
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760885432741432034, guid: fcfb1029c191eb5488d62a212edd8c74,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 97.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcfb1029c191eb5488d62a212edd8c74, type: 3}
