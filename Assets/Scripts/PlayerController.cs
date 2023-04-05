@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
     GameObject active_weapon;
 
     public Animator animator;
+    public GameObject viewlight;
 
     public void DisableInput() {
         movement_action.Disable();
@@ -325,6 +326,12 @@ public class PlayerController : MonoBehaviour
         // GameManagerScript.instance().InvokeNextTurn();
         if (!InventoryActive()) {
             controller.Rotate((int)ctx.ReadValue<float>());
+        }
+
+        if (controller.form == ActorState.Soul) {
+            viewlight.SetActive(true);
+        } else {
+            viewlight.SetActive(false);
         }
     }
 
