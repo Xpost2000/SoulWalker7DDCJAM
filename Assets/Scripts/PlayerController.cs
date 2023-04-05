@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
 
     GameObject active_weapon;
 
+    public Animator animator;
+
     public void DisableInput() {
         movement_action.Disable();
         turn_view.Disable();
@@ -311,6 +313,7 @@ public class PlayerController : MonoBehaviour
             GameManagerScript.instance().MessageLog.NewMessage("Player attacks!", Color.white);
             var weapon_component = active_weapon.GetComponent<WeaponDataScript>();
             weapon_component.Attack();
+            animator.Play("WeaponAnim", -1, 0f);
         } else {
             GameManagerScript.instance().MessageLog.NewMessage("No weapon! Cannot attack!", Color.red);
         }
