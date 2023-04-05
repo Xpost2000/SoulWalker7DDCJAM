@@ -4199,7 +4199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interpolate_animations: 1
-  target_framerate: 25
+  target_framerate: 30
   body_pickup_prefab: {fileID: 2401053090780757634, guid: 926589f04e01ff849be257637626f472,
     type: 3}
   player: {fileID: 844404400}

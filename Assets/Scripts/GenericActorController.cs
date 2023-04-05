@@ -46,7 +46,7 @@ public class GenericActorController : MonoBehaviour {
     private Vector3 start_lerp_position;
     private float   start_lerp_rotation_angle;
 
-    private static float ANIM_TIME_ACTOR = 0.3f;
+    private static float ANIM_TIME_ACTOR = 0.15f;
     private static float ANIM_TIME_MOVEMENT = ANIM_TIME_ACTOR;
     private static float ANIM_TIME_ROTATE = ANIM_TIME_ACTOR;
 
