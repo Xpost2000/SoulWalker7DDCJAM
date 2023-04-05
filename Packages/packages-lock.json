@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.github.superunitybuild.buildtool": {
+      "version": "file:buildtool-master",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.2d.tilemap": {
       "version": "1.0.0",
       "depth": 0,
