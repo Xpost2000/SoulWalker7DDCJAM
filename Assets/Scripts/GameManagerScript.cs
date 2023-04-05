@@ -33,6 +33,7 @@ public class GameManagerScript : MonoBehaviour {
     public GameObject ui_gameover;
     public GameObject ui_mainmenu;
     public GameObject ui_ingame;
+    public GameObject ui_win;
 
     public string first_scene;
 
@@ -102,6 +103,9 @@ public class GameManagerScript : MonoBehaviour {
                 print(m_state);
                 switch (m_state) {
                     case GameState.GameWin: {
+                        HideAllUIChildren();
+                        ui_win.SetActive(true);
+                        player.GetComponent<PlayerController>().DisableInput();
                     } break;
                     case GameState.GameOver: {
                         HideAllUIChildren();

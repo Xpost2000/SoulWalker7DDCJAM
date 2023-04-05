@@ -27,8 +27,7 @@ public class UIGameOverScript : MonoBehaviour
 
     void OnQuit() {
         print("on quit");
-        // should animate?
-        GameManagerScript.instance().State = GameState.MainMenu;
+        GameManagerScript.instance().Restart();
     }
 
     void OnReturnToDesktop() {
