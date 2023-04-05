@@ -14,6 +14,7 @@ public enum GameState {
     Pause,
     GameOver,
     Options,
+    Loading,
     GameWin
 }
 
@@ -34,6 +35,7 @@ public class GameManagerScript : MonoBehaviour {
     public GameObject ui_mainmenu;
     public GameObject ui_ingame;
     public GameObject ui_win;
+    public GameObject ui_loading;
 
     public string first_scene;
 
@@ -102,6 +104,11 @@ public class GameManagerScript : MonoBehaviour {
                 // based off the game state.
                 print(m_state);
                 switch (m_state) {
+                    case GameState.Loading: {
+                        HideAllUIChildren();
+                        ui_loading.SetActive(true);
+                        player.GetComponent<PlayerController>().DisableInput();
+                    } break;
                     case GameState.GameWin: {
                         HideAllUIChildren();
                         ui_win.SetActive(true);
@@ -183,6 +190,7 @@ public class GameManagerScript : MonoBehaviour {
         } else {
             print("NOTE: scene already loaded!");
         }
+        State = GameState.Loading;
     }
 
     public void Restart() {
@@ -191,7 +199,6 @@ public class GameManagerScript : MonoBehaviour {
 
     public static GameManagerScript instance() {
         var result = GameObject.Find("MainGameManager?");
-        print(result);
         return result.GetComponent<GameManagerScript>();
     }
 }

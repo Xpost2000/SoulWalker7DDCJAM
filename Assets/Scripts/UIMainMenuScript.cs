@@ -26,7 +26,6 @@ public class UIMainMenuScript : MonoBehaviour
     void OnStart() {
         print("on start?");
         GameManagerScript.instance().LoadFirstLevel();
-        GameManagerScript.instance().State = GameState.Ingame;
     }
 
     void OnQuit() {
