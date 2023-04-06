@@ -25,6 +25,9 @@ public class GameManagerScript : MonoBehaviour {
     // prefabs
     public GameObject body_pickup_prefab;
 
+    // sound stuff
+    public AudioClip sound_step;
+
     // handle game state
     public GameObject player;
     public GameObject user_interface_container;

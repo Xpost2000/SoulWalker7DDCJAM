@@ -29,6 +29,7 @@ public class GenericActorController : MonoBehaviour {
     private Vector3 logical_position;
     private float   logical_rotation;
     public ActorState form;
+    public AudioSource soundsource;
 
     public int max_health = 25;
     public int health = 25;
@@ -116,6 +117,9 @@ public class GenericActorController : MonoBehaviour {
         if (anim_type != AnimationType.None) return false;
         var movement = direction;
         StartAnimation(AnimationType.Movement, ANIM_TIME_MOVEMENT);
+
+        soundsource.clip = GameManagerScript.instance().sound_step;
+        soundsource.Play();
 
         RaycastHit raycast_result;
         bool hit_anything = false;

@@ -24,6 +24,7 @@ public class DoorScript : MonoBehaviour
     private DoorAnimationState anim_state;
 
     private Transform door_offset_hinge;
+    public GameObject soundsource;
 
     void Start() {
         base_angle = transform.eulerAngles.y;
@@ -53,6 +54,7 @@ public class DoorScript : MonoBehaviour
         anim_state = DoorAnimationState.Opening;
         anim_timer = 0.0f;
         GetComponent<BoxCollider>().enabled = !opened;
+        soundsource.GetComponent<AudioSource>().Play();
     }
 
     public void LockDoor() {
@@ -60,6 +62,7 @@ public class DoorScript : MonoBehaviour
         anim_state = DoorAnimationState.Closing;
         anim_timer = 0.0f;
         GetComponent<BoxCollider>().enabled = !opened;
+        soundsource.GetComponent<AudioSource>().Play();
     }
 
     public void ForceUseDoor() {
