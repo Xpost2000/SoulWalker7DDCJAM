@@ -409,6 +409,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // TODO: destroy inventory item
     public void UseInventoryItem(int index) {
         int i = 0;
         foreach (Transform child in inventory_display_container.transform) {
