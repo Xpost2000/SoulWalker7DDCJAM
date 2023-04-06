@@ -21,10 +21,13 @@ public class DoorScript : MonoBehaviour
     private float opening_angle;
     private DoorAnimationState anim_state;
 
+    private Transform door_offset_hinge;
+
     void Start() {
         base_angle = transform.eulerAngles.y;
         opening_angle = base_angle - 90;
         anim_state = DoorAnimationState.None;
+        door_offset_hinge = transform.Find("doorhingoffset");
     }
 
     public void UseDoor() {
@@ -55,10 +58,10 @@ public class DoorScript : MonoBehaviour
                 if (opened) angle = opening_angle;
                 else        angle = base_angle;
 
-                transform.eulerAngles = new Vector3(
-                    transform.eulerAngles.x,
+                door_offset_hinge.eulerAngles = new Vector3(
+                    door_offset_hinge.eulerAngles.x,
                     angle,
-                    transform.eulerAngles.z
+                    door_offset_hinge.eulerAngles.z
                 );
             } break;
             case DoorAnimationState.Opening: {
@@ -69,10 +72,10 @@ public class DoorScript : MonoBehaviour
                     anim_state = DoorAnimationState.None;
                 }
 
-                transform.eulerAngles = new Vector3(
-                    transform.eulerAngles.x,
+                door_offset_hinge.eulerAngles = new Vector3(
+                    door_offset_hinge.eulerAngles.x,
                     Mathf.Lerp(base_angle, opening_angle, effective_t),
-                    transform.eulerAngles.z
+                    door_offset_hinge.eulerAngles.z
                 );
             } break;
             case DoorAnimationState.Closing: {
@@ -85,9 +88,9 @@ public class DoorScript : MonoBehaviour
                 }
 
                 transform.eulerAngles = new Vector3(
-                    transform.eulerAngles.x,
+                    door_offset_hinge.eulerAngles.x,
                     Mathf.Lerp(opening_angle, base_angle, effective_t),
-                    transform.eulerAngles.z
+                    door_offset_hinge.eulerAngles.z
                 );
             } break;
         }
