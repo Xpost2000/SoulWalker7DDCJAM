@@ -64,6 +64,7 @@ public class GenericActorController : MonoBehaviour {
 
     public void SetLogicalPosition(Vector3 position) {
         logical_position = position;
+        RealignWithFloor();
     }
 
     public void SetLogicalRotation(float angle) {
@@ -113,6 +114,17 @@ public class GenericActorController : MonoBehaviour {
         }
         return true;
     }
+
+    void RealignWithFloor() {
+        int layer_mask = 1 << LayerMask.NameToLayer("Default");
+        RaycastHit raycast_result;
+        if (Physics.Raycast(logical_position + transform.up, -transform.up, out raycast_result, float.PositiveInfinity, layer_mask, QueryTriggerInteraction.Ignore)) {
+            if (ConsiderCollidingWith(raycast_result.collider.gameObject.tag)) {
+                logical_position = new Vector3(logical_position.x, raycast_result.point.y+1, logical_position.z);
+            }
+        }
+    }
+
     public bool MoveDirection(Vector2 direction) {
         if (anim_type != AnimationType.None) return false;
         var movement = direction;
@@ -133,14 +145,7 @@ public class GenericActorController : MonoBehaviour {
 
         if (!hit_anything) logical_position += transform.forward * movement.y + transform.right * movement.x; 
 
-        // realign with floor
-        print("Align with floor");
-        if (Physics.Raycast(logical_position + transform.up, -transform.up, out raycast_result, float.PositiveInfinity, layer_mask, QueryTriggerInteraction.Ignore)) {
-            if (ConsiderCollidingWith(raycast_result.collider.gameObject.tag)) {
-                logical_position = new Vector3(logical_position.x, raycast_result.point.y+1, logical_position.z);
-            }
-        }
-
+        RealignWithFloor();
         return true;
     }
 
