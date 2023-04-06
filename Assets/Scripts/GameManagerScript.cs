@@ -160,6 +160,7 @@ public class GameManagerScript : MonoBehaviour {
         print("Hi, I begin");
         // State = GameState.GameOver;
         State = GameState.MainMenu;
+        // State = GameState.GameWin;
 
         Application.targetFrameRate = target_framerate;
     }
