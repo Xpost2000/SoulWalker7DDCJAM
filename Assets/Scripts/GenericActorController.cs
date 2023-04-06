@@ -120,23 +120,18 @@ public class GenericActorController : MonoBehaviour {
         RaycastHit raycast_result;
         bool hit_anything = false;
 
-        bool is_on_ramp = false;
+        int layer_mask = 1 << LayerMask.NameToLayer("Default");
 
-        // collision pickup logic is here lol!
-        if (Physics.Raycast(logical_position, -transform.up, out raycast_result)) {
-            is_on_ramp = (raycast_result.collider.gameObject.tag ==  "Ramp");
-        }
-
-        if (Physics.Raycast(logical_position, transform.forward * movement.y, out raycast_result, 1) ||
-            Physics.Raycast(logical_position, transform.right * movement.x, out raycast_result, 1)) {
-            if (!raycast_result.collider.isTrigger) hit_anything = ConsiderCollidingWith(raycast_result.collider.gameObject.tag);
+        if (Physics.Raycast(logical_position, transform.forward * movement.y, out raycast_result, 1, layer_mask, QueryTriggerInteraction.Ignore) ||
+            Physics.Raycast(logical_position, transform.right * movement.x, out raycast_result, 1, layer_mask, QueryTriggerInteraction.Ignore)) {
+            hit_anything = ConsiderCollidingWith(raycast_result.collider.gameObject.tag);
         }
 
         if (!hit_anything) logical_position += transform.forward * movement.y + transform.right * movement.x; 
 
         // realign with floor
         print("Align with floor");
-        if (Physics.Raycast(logical_position + transform.up, -transform.up, out raycast_result)) {
+        if (Physics.Raycast(logical_position + transform.up, -transform.up, out raycast_result, float.PositiveInfinity, layer_mask, QueryTriggerInteraction.Ignore)) {
             if (ConsiderCollidingWith(raycast_result.collider.gameObject.tag)) {
                 logical_position = new Vector3(logical_position.x, raycast_result.point.y+1, logical_position.z);
             }

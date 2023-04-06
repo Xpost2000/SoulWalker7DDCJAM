@@ -270,6 +270,7 @@ public class PlayerController : MonoBehaviour
                         // hit the trigger of the door.
                         if (collider.isTrigger && collider_gameObject.tag == "Door") {
                             var door_component = collider_gameObject.transform.parent.GetComponent<DoorScript>();
+                            door_component.TryToUnlock(items);
                             door_component.UseDoor();
                             break;
                         }

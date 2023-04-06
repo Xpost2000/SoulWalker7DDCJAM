@@ -12,7 +12,9 @@ public class DoorScript : MonoBehaviour
 
     // Start is called before the first frame update
     public bool opened = false;
+
     public string required_item = null;
+    public bool locked = false;
 
     private float MAX_DOOR_ANIM_TIME = 0.15f;
 
@@ -30,21 +32,55 @@ public class DoorScript : MonoBehaviour
         door_offset_hinge = transform.Find("doorhingoffset");
     }
 
-    public void UseDoor() {
+    public void TryToUnlock(List<GameObject> items) {
+        if (locked) {
+            foreach (GameObject item in items) {
+                if (item.name == required_item) {
+                    locked = false;
+                    GameManagerScript.instance().MessageLog.NewMessage(
+                        "Door unlocked with " + required_item, Color.green
+                    );
+                    return;
+                }
+            }
+            GameManagerScript.instance().MessageLog.NewMessage(
+                "Door cannot be unlocked!", Color.red);
+        }
+    }
+
+    public void OpenDoor() {
+        opened = true;
+        anim_state = DoorAnimationState.Opening;
+        anim_timer = 0.0f;
+        GetComponent<BoxCollider>().enabled = !opened;
+    }
+
+    public void LockDoor() {
+        opened = false;
+        anim_state = DoorAnimationState.Closing;
+        anim_timer = 0.0f;
+        GetComponent<BoxCollider>().enabled = !opened;
+    }
+
+    public void ForceUseDoor() {
         if (anim_state == DoorAnimationState.None) {
             if (opened == false) {
-                opened = true;
-                anim_state = DoorAnimationState.Opening;
-                anim_timer = 0.0f;
+                OpenDoor();
             } else {
-                opened = false;
-                anim_state = DoorAnimationState.Closing;
-                anim_timer = 0.0f;
-                print("Hi! Open me up!");
+                LockDoor();
             }
-
-            GetComponent<BoxCollider>().enabled = !opened;
         }
+    }
+
+    public void UseDoor() {
+        if (locked) {
+            GameManagerScript.instance().MessageLog.NewMessage(
+                "Door is locked!", Color.red
+            );
+            return;
+        }
+
+        ForceUseDoor();
     }
 
     // Update is called once per frame
