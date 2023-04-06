@@ -253,7 +253,25 @@ public class PlayerController : MonoBehaviour
                 case ActivePrompt.Type.Activatable: {
                     print("Use activatable?");
                 } break;
-                default: {} break;
+                default: {
+                    // raycast and see what I hit.
+                    RaycastHit[] hits =
+                        Physics.RaycastAll(
+                            transform.position,
+                            transform.forward,
+                            1
+                        );
+                    foreach (RaycastHit hit in hits) {
+                        var collider = hit.collider;
+                        var collider_gameObject = hit.collider.gameObject;
+
+                        if (collider_gameObject.tag == "Door") {
+                            var door_component = collider_gameObject.GetComponent<DoorScript>();
+                            door_component.UseDoor();
+                            break;
+                        }
+                    }
+                } break;
             }
             // fire a raycast and see if we hit a door?
             // if a door is locked we'll check if we have the key item I suppose.

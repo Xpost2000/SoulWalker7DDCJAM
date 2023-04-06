@@ -35,6 +35,8 @@ public class WeaponDataScript : MonoBehaviour
 
     public void Attack() {
         if (projectile != null) {
+            // NOTE: I don't even know if I actually want projectiles anymore.
+
             // projectile path.
             // ignores 90% of this data lol
             GameManagerScript.instance().MessageLog.NewMessage(
