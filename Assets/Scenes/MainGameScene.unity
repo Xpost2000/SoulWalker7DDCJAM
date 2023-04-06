@@ -4931,7 +4931,7 @@ MonoBehaviour:
   ui_ingame: {fileID: 767790727}
   ui_win: {fileID: 1137269526}
   ui_loading: {fileID: 1099178333}
-  first_scene: Stage1
+  first_scene: Stage3
   seconds_per_turn: 3.5
   turns_passed: 0
 --- !u!1 &1760617121
@@ -6678,6 +6678,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760885431650748691, guid: fcfb1029c191eb5488d62a212edd8c74,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.38
       objectReference: {fileID: 0}
     - target: {fileID: 6760885431650748693, guid: fcfb1029c191eb5488d62a212edd8c74,
         type: 3}
