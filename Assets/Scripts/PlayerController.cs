@@ -261,12 +261,15 @@ public class PlayerController : MonoBehaviour
                             transform.forward,
                             1
                         );
+
+                    // possible bug, you can close the door on yourself?
                     foreach (RaycastHit hit in hits) {
                         var collider = hit.collider;
                         var collider_gameObject = hit.collider.gameObject;
 
-                        if (collider_gameObject.tag == "Door") {
-                            var door_component = collider_gameObject.GetComponent<DoorScript>();
+                        // hit the trigger of the door.
+                        if (collider.isTrigger && collider_gameObject.tag == "Door") {
+                            var door_component = collider_gameObject.transform.parent.GetComponent<DoorScript>();
                             door_component.UseDoor();
                             break;
                         }

@@ -40,6 +40,7 @@ public class DoorScript : MonoBehaviour
                 opened = false;
                 anim_state = DoorAnimationState.Closing;
                 anim_timer = 0.0f;
+                print("Hi! Open me up!");
             }
 
             GetComponent<BoxCollider>().enabled = !opened;
