@@ -40,6 +40,7 @@ public class GameManagerScript : MonoBehaviour {
     public GameObject ui_ingame;
     public GameObject ui_win;
     public GameObject ui_loading;
+    public GameObject ui_options;
 
     public string first_scene;
 
@@ -98,16 +99,29 @@ public class GameManagerScript : MonoBehaviour {
     }
 
     private GameState m_state = GameState.None;
+    private GameState m_last_state = GameState.None;
+    public GameState LastState {
+        get {
+            return m_last_state;
+        }
+    }
+
     public GameState State {
         get { return m_state; }
         set {
             if (value != m_state) {
+                m_last_state = m_state;
                 m_state = value;
 
                 // enable the appropriate objects
                 // based off the game state.
                 print(m_state);
                 switch (m_state) {
+                    case GameState.Options: {
+                        HideAllUIChildren();
+                        ui_options.SetActive(true);
+                        player.GetComponent<PlayerController>().DisableInput();
+                    } break;
                     case GameState.Loading: {
                         HideAllUIChildren();
                         ui_loading.SetActive(true);

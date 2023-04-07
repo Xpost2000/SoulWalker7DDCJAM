@@ -42,5 +42,6 @@ public class UIPauseMenuScript : MonoBehaviour
 
     void OnOptions() {
         print("On options?");
+        GameManagerScript.instance().State = GameState.Options;
     }
 }
