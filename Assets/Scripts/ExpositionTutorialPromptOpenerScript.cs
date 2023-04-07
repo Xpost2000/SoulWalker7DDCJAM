@@ -1,6 +1,7 @@
 using UnityEngine;
 
 public class ExpositionTutorialPromptOpenerScript : MonoBehaviour {
+    [TextArea]
     public string text;
     public float readspeed = 0.05f;
     public float delaytime = 1.0f;
