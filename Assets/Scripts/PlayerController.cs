@@ -422,7 +422,8 @@ public class PlayerController : MonoBehaviour
 
         active_weapon.transform.SetParent(gameObject.transform.Find("armpivot/handmaybe"));
         active_weapon.transform.localPosition = Vector3.zero;
-        active_weapon.transform.eulerAngles = new Vector3(active_weapon.transform.eulerAngles.x, 0, active_weapon.transform.eulerAngles.z);
+        active_weapon.transform.localEulerAngles = new Vector3(active_weapon.transform.eulerAngles.x, 0, active_weapon.transform.eulerAngles.z);
+        // active_weapon.transform.localRotation = Quaternion.identity;
         {
             var weapon_component = active_weapon.GetComponent<WeaponDataScript>();
             weapon_component.holder = gameObject;
