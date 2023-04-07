@@ -64,7 +64,6 @@ public class GenericActorController : MonoBehaviour {
 
     public void SetLogicalPosition(Vector3 position) {
         logical_position = position;
-        RealignWithFloor();
     }
 
     public void SetLogicalRotation(float angle) {
@@ -97,7 +96,8 @@ public class GenericActorController : MonoBehaviour {
     // NOTE: no one can hover, since we always snap to the floor
     // TODO: provide events on specific item collisions.
     // or bit flags on behaviors
-    bool ConsiderCollidingWith(string tagname) {
+    bool ConsiderCollidingWith(GameObject obj, string tagname) {
+        if (obj == gameObject) return false;
         switch (tagname) {
             case "Pickup":
             case "Nonsolid": {
@@ -115,15 +115,7 @@ public class GenericActorController : MonoBehaviour {
         return true;
     }
 
-    void RealignWithFloor() {
-        int layer_mask = 1 << LayerMask.NameToLayer("Default");
-        RaycastHit raycast_result;
-        if (Physics.Raycast(logical_position + transform.up, -transform.up, out raycast_result, float.PositiveInfinity, layer_mask, QueryTriggerInteraction.Ignore)) {
-            if (ConsiderCollidingWith(raycast_result.collider.gameObject.tag)) {
-                logical_position = new Vector3(logical_position.x, raycast_result.point.y+1, logical_position.z);
-            }
-        }
-    }
+    // void RealignWithFloor
 
     public bool MoveDirection(Vector2 direction) {
         if (anim_type != AnimationType.None) return false;
@@ -140,12 +132,20 @@ public class GenericActorController : MonoBehaviour {
 
         if (Physics.Raycast(logical_position, transform.forward * movement.y, out raycast_result, 1, layer_mask, QueryTriggerInteraction.Ignore) ||
             Physics.Raycast(logical_position, transform.right * movement.x, out raycast_result, 1, layer_mask, QueryTriggerInteraction.Ignore)) {
-            hit_anything = ConsiderCollidingWith(raycast_result.collider.gameObject.tag);
+            hit_anything = ConsiderCollidingWith(raycast_result.collider.gameObject, raycast_result.collider.gameObject.tag);
         }
 
         if (!hit_anything) logical_position += transform.forward * movement.y + transform.right * movement.x; 
 
-        RealignWithFloor();
+        // realign with floor
+        print("Align with floor");
+        if (Physics.Raycast(logical_position + transform.up, -transform.up, out raycast_result, float.PositiveInfinity, layer_mask, QueryTriggerInteraction.Ignore)) {
+            print(raycast_result.collider.gameObject);
+            if (ConsiderCollidingWith(raycast_result.collider.gameObject, raycast_result.collider.gameObject.tag)) {
+                logical_position = new Vector3(logical_position.x, raycast_result.point.y+1, logical_position.z);
+            }
+        }
+
         return true;
     }
 
