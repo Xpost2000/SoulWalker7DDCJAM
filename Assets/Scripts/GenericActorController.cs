@@ -122,8 +122,10 @@ public class GenericActorController : MonoBehaviour {
         var movement = direction;
         StartAnimation(AnimationType.Movement, ANIM_TIME_MOVEMENT);
 
-        soundsource.clip = GameManagerScript.instance().sound_step;
-        soundsource.Play();
+        if (soundsource != null) {
+            soundsource.clip = GameManagerScript.instance().sound_step;
+            soundsource.Play();
+        }
 
         RaycastHit raycast_result;
         bool hit_anything = false;
@@ -146,7 +148,33 @@ public class GenericActorController : MonoBehaviour {
             }
         }
 
-        return true;
+        return !hit_anything;
+    }
+
+    public bool MoveAbsoluteDirection(Vector2 xy) {
+        // only accept x or y. Not X and Y. Sorry!
+        // x first. y second.
+        if((int)xy.x == 0 && (int)xy.y == 0) return false;
+        
+        if ((int)xy.x != 0) {
+            GameManagerScript.instance().MessageLog.NewMessage(gameObject.name + " thinks to move X mode!", Color.red);
+            if (xy.x < 0) {
+                SetLogicalRotation(-90.0f);
+            } else if (xy.x > 0) {
+                SetLogicalRotation(90.0f);
+            }
+        } else {
+            GameManagerScript.instance().MessageLog.NewMessage(gameObject.name + " thinks to move Y mode!", Color.red);
+            if (xy.y < 0) {
+                SetLogicalRotation(180.0f);
+            } else if (xy.y > 0) {
+                SetLogicalRotation(0.0f);
+            }
+        }
+        SyncLocalToActual();
+        Debug.DrawRay(transform.position, transform.forward * 2, Color.green, 5);
+        // always move forward after turning.
+        return MoveDirection(Vector2.up);
     }
 
     public void HealSoul(int health) {
@@ -304,18 +332,21 @@ public class GenericActorController : MonoBehaviour {
     }
 
     // Update is called once per frame
+    void SyncLocalToActual() {
+        transform.position = logical_position;
+        transform.eulerAngles =
+            new Vector3(
+                transform.eulerAngles.x,
+                logical_rotation,
+                transform.eulerAngles.z
+            );
+    }
     void Update() {
         float dt = Time.deltaTime;
 
         switch (anim_type) {
             case AnimationType.None: {
-                transform.position = logical_position;
-                transform.eulerAngles =
-                    new Vector3(
-                        transform.eulerAngles.x,
-                        logical_rotation,
-                        transform.eulerAngles.z
-                    );
+                SyncLocalToActual();
             } break;
             case AnimationType.Movement: {
                 float effective_t = Mathf.Clamp(anim_timer/max_lerp_time, 0.0f, 1.0f);

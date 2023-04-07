@@ -68,6 +68,13 @@ public class EnemyActorController : MonoBehaviour
         );
     }
 
+
+    public void Incapacitate() {
+        incapacitation_turns = max_incapacitation_turns;
+        GameManagerScript.instance().MessageLog.NewMessage(gameObject.name + " has incapacitated!", Color.white);
+        on_incapacitate?.Invoke();
+    }
+
     void OnDeath(ActorState state) {
         if ((state & death_if_form_dies) != 0) {
             // perma death?!
@@ -77,10 +84,7 @@ public class EnemyActorController : MonoBehaviour
             // for now just disappear.
             Destroy(gameObject);
         } else {
-            // wrong death form!
-            incapacitation_turns = max_incapacitation_turns;
-            GameManagerScript.instance().MessageLog.NewMessage(gameObject.name + " has incapacitated!", Color.white);
-            on_incapacitate?.Invoke();
+            Incapacitate();
         }
     }
 }
