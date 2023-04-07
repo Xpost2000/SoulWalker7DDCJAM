@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 8556791209586473377}
   m_Layer: 0
   m_Name: Kobold
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,8 +134,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 1
   soundsource: {fileID: 0}
-  max_health: 35
-  health: -1
+  max_health: -1
+  health: 35
   max_soul_health: -1
   soul_health: -1
   defense: 2
@@ -175,6 +175,7 @@ MonoBehaviour:
   can_wander: 1
   wander_radius: 10
   starting_position: {x: 0, y: 0, z: 0}
+  turn_between_moves: 1
 --- !u!135 &8556791209586473377
 SphereCollider:
   m_ObjectHideFlags: 0

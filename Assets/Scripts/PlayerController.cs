@@ -322,7 +322,7 @@ public class PlayerController : MonoBehaviour
         foreach (Transform child in inventory_display_container.transform) {
             child.localPosition = new Vector3(
                 ((i) - selected_item_index)*1.0f,
-                child.localPosition.y,
+                transform.position.y,
                 child.localPosition.z);
             i++;
         }
@@ -430,7 +430,12 @@ public class PlayerController : MonoBehaviour
         active_weapon.transform.localEulerAngles = new Vector3(active_weapon.transform.eulerAngles.x, 0, active_weapon.transform.eulerAngles.z);
         // active_weapon.transform.localRotation = Quaternion.identity;
         {
+            var weapon_component = active_weapon.GetComponent<GenericWeaponAttackBehavior>();
+            weapon_component.enabled = true;
+        }
+        {
             var weapon_component = active_weapon.GetComponent<WeaponDataScript>();
+            weapon_component.enabled = true;
             weapon_component.holder = gameObject;
         }
     }
@@ -468,11 +473,12 @@ public class PlayerController : MonoBehaviour
                     if (destroy) {
                         child.parent = null;
                         Destroy(child.gameObject);
+                        items.RemoveAt(index);
                     } 
-                    Close3DInventory();
                 } else {
                     GameManagerScript.instance().MessageLog.NewMessage("Cannot use this item!", Color.red);
                 }
+                Close3DInventory();
                 break;
             }
             i++;

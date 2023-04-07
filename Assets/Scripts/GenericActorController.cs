@@ -135,6 +135,8 @@ public class GenericActorController : MonoBehaviour {
         if (Physics.Raycast(logical_position, transform.forward * movement.y, out raycast_result, 1, layer_mask, QueryTriggerInteraction.Ignore) ||
             Physics.Raycast(logical_position, transform.right * movement.x, out raycast_result, 1, layer_mask, QueryTriggerInteraction.Ignore)) {
             hit_anything = ConsiderCollidingWith(raycast_result.collider.gameObject, raycast_result.collider.gameObject.tag);
+            if (hit_anything)
+                print(raycast_result.collider.gameObject);
         }
 
         if (!hit_anything) logical_position += transform.forward * movement.y + transform.right * movement.x; 

@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 8556791209586473377}
   m_Layer: 0
   m_Name: DemonKnight
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -135,8 +135,8 @@ MonoBehaviour:
   form: 1
   soundsource: {fileID: 0}
   max_health: 125
-  health: -1
-  max_soul_health: -1
+  health: 125
+  max_soul_health: 100
   soul_health: -1
   defense: 10
 --- !u!114 &8556791209586473391
@@ -187,7 +187,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.74
+  m_Radius: 11.97
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &3613085860671174994
 PrefabInstance:

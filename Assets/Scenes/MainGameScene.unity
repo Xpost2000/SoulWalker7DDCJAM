@@ -8363,7 +8363,7 @@ PrefabInstance:
     - target: {fileID: 2391739157923088437, guid: fcfb1029c191eb5488d62a212edd8c74,
         type: 3}
       propertyPath: m_Name
-      value: PlayerMain
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6003315538076814983, guid: fcfb1029c191eb5488d62a212edd8c74,
         type: 3}
@@ -8477,6 +8477,11 @@ PrefabInstance:
       propertyPath: inventory_canvas_template_for_item
       value: 
       objectReference: {fileID: 1499282292}
+    - target: {fileID: 6760885431650748698, guid: fcfb1029c191eb5488d62a212edd8c74,
+        type: 3}
+      propertyPath: trauma_limit
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 6760885432476599481, guid: fcfb1029c191eb5488d62a212edd8c74,
         type: 3}
       propertyPath: m_Cameras.Array.data[0]

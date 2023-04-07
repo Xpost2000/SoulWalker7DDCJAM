@@ -66,13 +66,14 @@ public class WeaponDataScript : MonoBehaviour
             else {
                 var controller_component = collider_gameObject.GetComponent<GenericActorController>();
                 if (controller_component) {
-                    print("Okay, hurtin!");
+                    print("Okay, hurtin! (WeaponDataScript)");
+                    print(collider_gameObject);
                     on_attack_damage?.Invoke(collider_gameObject);
+                    break;
                 }
                 on_attack_hit?.Invoke(collider_gameObject);
 
                 end = hit.point;
-                break;
             }
         }
     }
