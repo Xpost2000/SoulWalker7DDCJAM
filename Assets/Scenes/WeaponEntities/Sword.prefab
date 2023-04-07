@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86edfcf01c2246549b88d28b56679f99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  physical_damage: 15
+  physical_damage: 20
   soul_damage: 0
   must_go_through_body: 1
 --- !u!136 &7182007142111898473

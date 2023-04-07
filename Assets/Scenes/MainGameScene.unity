@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
+  m_AmbientSkyColor: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -8427,6 +8427,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6760885431650748693, guid: fcfb1029c191eb5488d62a212edd8c74,
         type: 3}
+      propertyPath: health
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760885431650748693, guid: fcfb1029c191eb5488d62a212edd8c74,
+        type: 3}
+      propertyPath: max_health
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760885431650748693, guid: fcfb1029c191eb5488d62a212edd8c74,
+        type: 3}
       propertyPath: soundsource
       value: 
       objectReference: {fileID: 833565753}
@@ -8443,7 +8453,7 @@ PrefabInstance:
     - target: {fileID: 6760885431650748695, guid: fcfb1029c191eb5488d62a212edd8c74,
         type: 3}
       propertyPath: items.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6760885431650748695, guid: fcfb1029c191eb5488d62a212edd8c74,
         type: 3}
@@ -8475,17 +8485,17 @@ PrefabInstance:
     - target: {fileID: 6760885432476599487, guid: fcfb1029c191eb5488d62a212edd8c74,
         type: 3}
       propertyPath: m_BackGroundColor.b
-      value: 0.18867922
+      value: 0.24528301
       objectReference: {fileID: 0}
     - target: {fileID: 6760885432476599487, guid: fcfb1029c191eb5488d62a212edd8c74,
         type: 3}
       propertyPath: m_BackGroundColor.g
-      value: 0.13396092
+      value: 0.14553788
       objectReference: {fileID: 0}
     - target: {fileID: 6760885432476599487, guid: fcfb1029c191eb5488d62a212edd8c74,
         type: 3}
       propertyPath: m_BackGroundColor.r
-      value: 0.11480952
+      value: 0.109914556
       objectReference: {fileID: 0}
     - target: {fileID: 6760885432741431964, guid: fcfb1029c191eb5488d62a212edd8c74,
         type: 3}

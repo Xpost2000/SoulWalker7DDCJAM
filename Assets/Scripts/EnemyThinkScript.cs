@@ -140,7 +140,7 @@ public class EnemyThinkScript : MonoBehaviour
                     print("hit myself.");
                     continue;
                 }
-                else {
+                else if (collider_gameObject.tag == "Player") {
                     if (Random.Range(0.0f, 1.0f) < attack_hitting_chance) {
                         var controller_component = collider_gameObject.GetComponent<GenericActorController>();
                         if (controller_component) {
@@ -181,7 +181,7 @@ public class EnemyThinkScript : MonoBehaviour
                     print("hit myself.");
                     continue;
                 }
-                else {
+                else if (collider_gameObject.tag == "Player") {
                     if (Random.Range(0.0f, 1.0f) < attack_hitting_chance) {
                         var controller_component = collider_gameObject.GetComponent<GenericActorController>();
                         if (controller_component) {

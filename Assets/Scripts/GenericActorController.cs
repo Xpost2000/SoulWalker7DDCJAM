@@ -279,6 +279,7 @@ public class GenericActorController : MonoBehaviour {
             if (this.soul_health > 0) {
                 int actual_damage = health-this.defense/2;
                 this.soul_health -= (actual_damage);
+                GameManagerScript.instance().MessageLog.NewMessage(gameObject.name + " has taken " + health.ToString() + " spirit!", Color.white);
                 on_hurt?.Invoke(actual_damage, ActorState.Soul);
                 if (this.soul_health <= 0) {
                     on_death?.Invoke(ActorState.Soul);
@@ -298,6 +299,7 @@ public class GenericActorController : MonoBehaviour {
                 // min damage is 1, 0 damage should be impossible.
                 if (actual_damage <= 0) actual_damage = 1;
 
+                GameManagerScript.instance().MessageLog.NewMessage(gameObject.name + " has taken " + health.ToString() + " physical!", Color.white);
                 this.health -= (actual_damage);
                 on_hurt?.Invoke(actual_damage, ActorState.Body);
                 if (this.health <= 0) {
