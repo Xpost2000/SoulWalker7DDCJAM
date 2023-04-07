@@ -4921,6 +4921,8 @@ MonoBehaviour:
   target_framerate: 30
   body_pickup_prefab: {fileID: 2401053090780757634, guid: 926589f04e01ff849be257637626f472,
     type: 3}
+  prefab_projectile_tracer: {fileID: 2584213453415547863, guid: 9ca9660f6e6a0064fbcda628c7dd85f5,
+    type: 3}
   sound_step: {fileID: 8300000, guid: 0b2aa31bc5e690f49ad68d763b6963f1, type: 3}
   player: {fileID: 844404400}
   user_interface_container: {fileID: 1770020270}
@@ -6707,6 +6709,12 @@ PrefabInstance:
     - target: {fileID: 6760885431650748695, guid: fcfb1029c191eb5488d62a212edd8c74,
         type: 3}
       propertyPath: items.Array.data[0]
+      value: 
+      objectReference: {fileID: 6017936316906836717, guid: a9b9a2bf41cb3dc4cb473fa112d8a5c5,
+        type: 3}
+    - target: {fileID: 6760885431650748695, guid: fcfb1029c191eb5488d62a212edd8c74,
+        type: 3}
+      propertyPath: items.Array.data[1]
       value: 
       objectReference: {fileID: 6017936316906836717, guid: 6c986654eb57fe34d935a1572c726b46,
         type: 3}

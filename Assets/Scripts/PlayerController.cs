@@ -190,6 +190,7 @@ public class PlayerController : MonoBehaviour
             // sync it up with the "display" inventory
             // cause this is weird.
             foreach (GameObject existing_item in items) {
+                print(existing_item.name);
                 OnItemPickup(existing_item);
             }
         }
@@ -342,7 +343,13 @@ public class PlayerController : MonoBehaviour
             } else {
                 GameManagerScript.instance().MessageLog.NewMessage("Player misses!", Color.red);
             }
-            animator.Play("WeaponAnim", -1, 0f);
+            if (!weapon_component.is_ranged) {
+                animator.Play("WeaponAnim", -1, 0f);
+            } else {
+                GameObject replica = Instantiate(GameManagerScript.instance().prefab_projectile_tracer);
+                Vector3 start = transform.position + transform.right*0.125f - transform.up*0.15f;
+                replica.GetComponent<LineTracerScript>().SetPoints(start, start + transform.forward * weapon_component.distance);
+            }
         } else {
             GameManagerScript.instance().MessageLog.NewMessage("No weapon! Cannot attack!", Color.red);
         }
