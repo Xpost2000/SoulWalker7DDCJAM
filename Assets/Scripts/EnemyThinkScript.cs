@@ -17,31 +17,46 @@ using UnityEngine;
 
   In theory this would be nice to make a type of scriptable object since it's
   a "data" container.
+
+  Expects:
+  a collider to determine "FOV",
+  and the two other controller types which submanage other parts of
+  the actor type.
 */
 public class EnemyThinkScript : MonoBehaviour
 {
     public float soul_damage_modifier = 1.0f;
     public float physical_damage_modifier = 1.0f;
     public int damage = 5;
+    public bool can_do_ranged = false;
+    public float attack_range = 3.0f; // NOTE can be less than chase collider
     // +/- range
     public int damage_variance = 2;
     public bool allow_ranged_attacks = false;
     public float attack_hitting_chance = 0.67f;
 
-    /**/
+    /* chase data cause it's funny */
     public bool can_wander = false;
     public float wander_radius = 4;
+    public Vector3 starting_position;
+
 
     GameObject player;
     // Start is called before the first frame update
+
+    GenericActorController controller;
+    EnemyActorController   enemy_controller;
+
     void Start() {
-        var enemy_actor_controller = GetComponent<EnemyActorController>();
-        enemy_actor_controller.on_turn_start += OnTurnStart;
-        enemy_actor_controller.on_turn_end += OnTurnEnd;
+        enemy_controller = GetComponent<EnemyActorController>();
+        controller       = GetComponent<GenericActorController>();
+
+        enemy_controller.on_turn_start += OnTurnStart;
+        enemy_controller.on_turn_end += OnTurnEnd;
+        starting_position =  transform.position;
     }
 
-    void OnDestroy() {
-    }
+    void OnDestroy() {}
 
     public int getDamage(ActorState state) {
         float modifier = 1.0f;
@@ -72,10 +87,33 @@ public class EnemyThinkScript : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update() {}
+    void HandleWanderBehavior() {
+        print("Okay. Let's do a wandering behavior!");
+        // TODO;
+    }
+
+    void HandleChasingBehavior() {
+        print("Okay. Let's do a chasing behavior!");
+        // TODO;
+    }
+
+    void HandleAttackingBehavior() {
+        print("Let's see if I can attack.");
+        if (can_do_ranged) {
+        }
+    }
 
     void OnTurnEnd() {
+        bool is_chasing = player != null;
+        if (is_chasing) {
+            HandleChasingBehavior();
+        } else {
+            if (can_wander) {
+                HandleWanderBehavior();
+            }
+        }
+
+        HandleAttackingBehavior();
     }
 
     void OnTurnStart() {
