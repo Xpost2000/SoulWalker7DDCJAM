@@ -6710,7 +6710,7 @@ PrefabInstance:
         type: 3}
       propertyPath: items.Array.data[0]
       value: 
-      objectReference: {fileID: 6017936316906836717, guid: a9b9a2bf41cb3dc4cb473fa112d8a5c5,
+      objectReference: {fileID: 6017936316906836717, guid: 6c986654eb57fe34d935a1572c726b46,
         type: 3}
     - target: {fileID: 6760885431650748695, guid: fcfb1029c191eb5488d62a212edd8c74,
         type: 3}

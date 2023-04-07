@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
         GameObject text = new GameObject("description");
         text.transform.SetParent(replica_canvas.transform);
         text.transform.localScale = new Vector3(1,1,1);
-        text.transform.localPosition = new Vector3(0, -2f, 0);
+        text.transform.localPosition = new Vector3(0, -2.5f, 0);
         TextMeshProUGUI text_data = text.AddComponent<TextMeshProUGUI>();
         text_data.fontSize = 32;
         text_data.text = pickup_component.description;
@@ -416,6 +416,7 @@ public class PlayerController : MonoBehaviour
 
         active_weapon.transform.SetParent(gameObject.transform.Find("armpivot/handmaybe"));
         active_weapon.transform.localPosition = Vector3.zero;
+        active_weapon.transform.eulerAngles = new Vector3(active_weapon.transform.eulerAngles.x, 0, active_weapon.transform.eulerAngles.z);
         {
             var weapon_component = active_weapon.GetComponent<WeaponDataScript>();
             weapon_component.holder = gameObject;
