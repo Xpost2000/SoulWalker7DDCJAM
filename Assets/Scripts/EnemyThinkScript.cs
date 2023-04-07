@@ -37,7 +37,6 @@ public class EnemyThinkScript : MonoBehaviour
     /* chase data cause it's funny */
     public bool can_wander = false;
 
-    /* not using this... too much work to setup */
     public float wander_radius = 4;
     public Vector3 starting_position;
 
@@ -92,17 +91,15 @@ public class EnemyThinkScript : MonoBehaviour
         print("Okay. Let's do a wandering behavior!");
         // TODO;
         float wander_distance = Vector3.Distance(starting_position, transform.position);
-        Vector2 travel_direction =
-            new Vector2(Random.Range(-1, 1), Random.Range(-1, 1));
-        if (wander_distance >= wander_radius) {
-            travel_direction = transform.position - starting_position;
-        }
-
-        travel_direction = new Vector2(Mathf.Sign(travel_direction.x), Mathf.Sign(travel_direction.y));
-
-        if (travel_direction.magnitude != 0) {
-            controller.SetLogicalRotation(Mathf.Atan2(travel_direction.y, travel_direction.x) * Mathf.Rad2Deg) ;
-            controller.MoveDirection(travel_direction);
+        if (wander_distance < wander_radius) {
+            var movements = new Vector2[] {Vector2.up, -Vector2.up, Vector2.right, -Vector2.right};
+            controller.MoveAbsoluteDirection(
+                movements[(int)Random.Range(0, 3)]
+            );
+        } else {
+            // walk back
+            var wander_back_direction =  starting_position - transform.position;
+            controller.MoveAbsoluteDirection(new Vector2(wander_back_direction.x, wander_back_direction.z));
         }
     }
 

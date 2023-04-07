@@ -157,14 +157,12 @@ public class GenericActorController : MonoBehaviour {
         if((int)xy.x == 0 && (int)xy.y == 0) return false;
         
         if ((int)xy.x != 0) {
-            GameManagerScript.instance().MessageLog.NewMessage(gameObject.name + " thinks to move X mode!", Color.red);
             if (xy.x < 0) {
                 SetLogicalRotation(-90.0f);
             } else if (xy.x > 0) {
                 SetLogicalRotation(90.0f);
             }
         } else {
-            GameManagerScript.instance().MessageLog.NewMessage(gameObject.name + " thinks to move Y mode!", Color.red);
             if (xy.y < 0) {
                 SetLogicalRotation(180.0f);
             } else if (xy.y > 0) {

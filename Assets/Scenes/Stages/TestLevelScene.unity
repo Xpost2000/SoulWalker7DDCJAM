@@ -9296,8 +9296,8 @@ MonoBehaviour:
   attack_range: 3
   damage_variance: 2
   attack_hitting_chance: 0.67
-  can_wander: 0
-  wander_radius: 4
+  can_wander: 1
+  wander_radius: 10
   starting_position: {x: 0, y: 0, z: 0}
 --- !u!135 &2060938536
 SphereCollider:
@@ -9310,7 +9310,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.05
+  m_Radius: 1.74
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2085820296
 PrefabInstance:
