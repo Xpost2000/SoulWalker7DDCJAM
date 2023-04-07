@@ -4931,7 +4931,7 @@ MonoBehaviour:
   ui_ingame: {fileID: 767790727}
   ui_win: {fileID: 1137269526}
   ui_loading: {fileID: 1099178333}
-  first_scene: Stage3
+  first_scene: TestLevelScene
   seconds_per_turn: 3.5
   turns_passed: 0
 --- !u!1 &1760617121

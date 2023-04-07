@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviour
     public Canvas inventory_canvas_template_for_item;
     public List<GameObject> items;
 
+    public float hit_chance = 0.8895f;
+
     private int selected_item_index = 0;
 
     private ActivePrompt prompt;
@@ -335,7 +337,11 @@ public class PlayerController : MonoBehaviour
         if (active_weapon != null) {
             GameManagerScript.instance().MessageLog.NewMessage("Player attacks!", Color.white);
             var weapon_component = active_weapon.GetComponent<WeaponDataScript>();
-            weapon_component.Attack();
+            if (Random.Range(0f, 1f) <= hit_chance) {
+                weapon_component.Attack();
+            } else {
+                GameManagerScript.instance().MessageLog.NewMessage("Player misses!", Color.red);
+            }
             animator.Play("WeaponAnim", -1, 0f);
         } else {
             GameManagerScript.instance().MessageLog.NewMessage("No weapon! Cannot attack!", Color.red);
