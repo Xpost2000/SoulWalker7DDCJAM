@@ -40,6 +40,10 @@ public class EnemyThinkScript : MonoBehaviour
     public float wander_radius = 4;
     public Vector3 starting_position;
 
+    // higher is "slower"
+    public int turn_between_moves = 1;
+    int turn_timer = 0;
+
 
     GameObject player;
     // Start is called before the first frame update
@@ -199,15 +203,20 @@ public class EnemyThinkScript : MonoBehaviour
 
     void OnTurnEnd() {
         bool is_chasing = player != null;
-        if (is_chasing) {
-            HandleChasingBehavior();
-        } else {
-            if (can_wander) {
-                HandleWanderBehavior();
+        if (turn_timer <= 0) {
+            if (is_chasing) {
+                HandleChasingBehavior();
+            } else {
+                if (can_wander) {
+                    HandleWanderBehavior();
+                }
             }
-        }
 
-        if (player != null) HandleAttackingBehavior();
+            if (player != null) HandleAttackingBehavior();
+            turn_timer = turn_between_moves;
+        } else {
+            turn_timer -= 1;
+        }
     }
 
     void OnTurnStart() {
