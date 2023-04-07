@@ -9,6 +9,10 @@ using TMPro;
 public class UIGameplayScript : MonoBehaviour
 {
     public GameObject fader;
+
+    public GameObject exposition_tutorial_panel;
+    public GameObject exposition_tutorial_panel_text;
+
     public GameObject player_object;
     public GameObject hp_text_target;
     public GameObject existence_text_target;
@@ -81,6 +85,60 @@ public class UIGameplayScript : MonoBehaviour
         yield break;
     }
 
+    /*
+      These are mainly excuses to use coroutines so I just know how to use them.
+
+      They're sorta neat I suppose.
+     */
+    IEnumerator _OpenExpositionTutorialPanel(string message, float read_speed, float delaytime) {
+        int text_length = 0;
+        var panel_graphic = exposition_tutorial_panel.GetComponent<Image>();
+        var text_object = exposition_tutorial_panel_text.GetComponent<TextMeshProUGUI>();
+
+        exposition_tutorial_panel.SetActive(true);
+        GameManagerScript.instance().player.GetComponent<PlayerController>().DisableInput();
+
+        // fade in
+        for (float t = 0; t < 0.5f; t += Time.deltaTime) {
+            Color c = panel_graphic.color;
+            c.a = t / 0.5f;
+            panel_graphic.color = c;
+            yield return null;
+        }
+
+        // type message
+        while (text_length <= message.Length) {
+            text_object.text = message.Substring(0, text_length);
+            yield return new WaitForSeconds(read_speed);
+            text_length++;
+        }
+        text_length--;
+        yield return new WaitForSeconds(delaytime);
+        while (text_length >= 0) {
+            text_object.text = message.Substring(0, text_length);
+            yield return new WaitForSeconds(read_speed);
+            text_length--;
+        }
+
+        // fade out
+        for (float t = 0; t < 0.5f; t += Time.deltaTime) {
+            Color c = panel_graphic.color;
+            c.a = 1 - (t / 0.5f);
+            panel_graphic.color = c;
+            yield return null;
+        }
+
+        exposition_tutorial_panel.SetActive(false);
+        GameManagerScript.instance().player.GetComponent<PlayerController>().EnableInput();
+        yield break;
+    }
+
+    public void OpenExpositionTutorialPanel(string message, float read_speed=0.05f, float delaytime=1.0f) {
+        StartCoroutine(
+            _OpenExpositionTutorialPanel(message, read_speed, delaytime)
+        );
+    }
+
     void Start() {
         {
             var player_actor_controller = player_object.GetComponent<GenericActorController>();
@@ -92,6 +150,7 @@ public class UIGameplayScript : MonoBehaviour
             player_actor_controller.on_body_equip += delegate() { StartCoroutine(AnimateFader(Color.yellow, 0.4f, 0.15f)); };
         }
         UpdateHPText();
+        DisablePrompt();
     }
 
     void Update() {

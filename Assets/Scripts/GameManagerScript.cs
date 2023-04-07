@@ -164,6 +164,12 @@ public class GameManagerScript : MonoBehaviour {
         return user_interface_container.transform.Find(name).gameObject;
     }
 
+    public void OpenExpositionTutorialPanel(string message, float read_speed=0.05f, float delaytime=1.0f) {
+        ui_ingame.GetComponent<UIGameplayScript>().OpenExpositionTutorialPanel(
+            message, read_speed, delaytime
+        );
+    }
+
     void HideAllUIChildren() {
         foreach (Transform child in user_interface_container.transform) {
             child.gameObject.SetActive(false);
