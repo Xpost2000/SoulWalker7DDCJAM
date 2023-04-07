@@ -32,7 +32,7 @@ RenderSettings:
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
   m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
-  m_DefaultReflectionMode: 0
+  m_DefaultReflectionMode: 1
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
@@ -6321,7 +6321,7 @@ MonoBehaviour:
   ui_win: {fileID: 1137269526}
   ui_loading: {fileID: 1099178333}
   ui_options: {fileID: 561362823}
-  first_scene: TestLevelScene
+  first_scene: Stage1
   seconds_per_turn: 3.5
   turns_passed: 0
 --- !u!1 &1760617121

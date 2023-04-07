@@ -236,12 +236,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void ToggleViewLight() {
+        if (controller.form == ActorState.Soul) {
+            viewlight.SetActive(true);
+        } else {
+            viewlight.SetActive(false);
+        }
+    }
+
     void OnDropBody(InputAction.CallbackContext ctx) {
         if (controller.UnequipBody()) {
             GameManagerScript.instance().MessageLog.NewMessage("Unequipping body.", Color.red);
         } else {
             GameManagerScript.instance().MessageLog.NewMessage("No body to unequip!", Color.red);
         }
+        ToggleViewLight();
     }
 
     void OnConfirmOrUse(InputAction.CallbackContext ctx) {
@@ -255,9 +264,11 @@ public class PlayerController : MonoBehaviour
                     if (controller.EquipBody(prompt.subject)) {
                         GameManagerScript.instance().MessageLog.NewMessage("Equipped a new body!", Color.green);
                         on_body_equip?.Invoke();
+
                     } else {
                         GameManagerScript.instance().MessageLog.NewMessage("Cannot equip body while wearing one!", Color.red);
                     }
+                    ToggleViewLight();
                 } break;
                 case ActivePrompt.Type.Activatable: {
                     print("Use activatable?");
@@ -367,12 +378,6 @@ public class PlayerController : MonoBehaviour
         // GameManagerScript.instance().InvokeNextTurn();
         if (!InventoryActive()) {
             controller.Rotate((int)ctx.ReadValue<float>());
-        }
-
-        if (controller.form == ActorState.Soul) {
-            viewlight.SetActive(true);
-        } else {
-            viewlight.SetActive(false);
         }
     }
 

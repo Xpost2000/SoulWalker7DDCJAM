@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7182007142111898473}
   m_Layer: 0
   m_Name: Crossbow
-  m_TagString: Nonsolid
+  m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
