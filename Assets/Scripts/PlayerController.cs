@@ -57,6 +57,11 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public GameObject viewlight;
 
+    public delegate void OnHeal();
+    public delegate void OnBodyEquip();
+    public event OnHeal on_heal;
+    public event OnBodyEquip on_body_equip;
+
     public void DisableInput() {
         movement_action.Disable();
         turn_view.Disable();
@@ -249,6 +254,7 @@ public class PlayerController : MonoBehaviour
                     print("Equipping a body.");
                     if (controller.EquipBody(prompt.subject)) {
                         GameManagerScript.instance().MessageLog.NewMessage("Equipped a new body!", Color.green);
+                        on_body_equip?.Invoke();
                     } else {
                         GameManagerScript.instance().MessageLog.NewMessage("Cannot equip body while wearing one!", Color.red);
                     }
@@ -431,12 +437,15 @@ public class PlayerController : MonoBehaviour
                 bool used = false;
                 bool destroy = false;
 
+                // one of the pieces I'm not proud of..
+
                 var item_data = child.gameObject.GetComponent<ItemPickupGeneric>();
                 var healing_component = child.gameObject.GetComponent<HealingItem>();
 
                 if (healing_component) {
                     GameManagerScript.instance().MessageLog.NewMessage("Healed " + healing_component.amount.ToString() + " hp!", Color.green);
                     controller.Heal(healing_component.amount);
+                    on_heal?.Invoke();
                     used = true;
                     destroy = true;
                 }
