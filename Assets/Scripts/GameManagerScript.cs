@@ -27,7 +27,12 @@ public class GameManagerScript : MonoBehaviour {
     public GameObject prefab_projectile_tracer;
 
     // sound stuff
+    public AudioSource playersoundsource; // lolol
     public AudioClip sound_step;
+    public AudioClip hit_sound;
+    public AudioClip fire_sound;
+    public AudioClip teleport_sound;
+    public AudioClip pickup_sound;
 
     // handle game state
     public GameObject player;

@@ -108,6 +108,7 @@ public class PlayerController : MonoBehaviour
           whatever the hell this is.
         */
         var replica = Instantiate(what_item, inventory_display_container.transform);
+        replica.name = what_item.name;
         
         if (replica.GetComponent<CapsuleCollider>())
             replica.GetComponent<CapsuleCollider>().enabled = false;
@@ -155,6 +156,8 @@ public class PlayerController : MonoBehaviour
             } else if (pickup_component) {
                 pickup_component.InvokeOnTrigger(gameObject);
                 OnItemPickup(pickup_component.reward_item);
+                GameManagerScript.instance().playersoundsource.clip = GameManagerScript.instance().pickup_sound;
+                GameManagerScript.instance().playersoundsource.Play();
                 print("Hi pickup!");
             }
         } else {
@@ -322,8 +325,8 @@ public class PlayerController : MonoBehaviour
         foreach (Transform child in inventory_display_container.transform) {
             child.localPosition = new Vector3(
                 ((i) - selected_item_index)*1.0f,
-                transform.position.y,
-                child.localPosition.z);
+                0,
+                0);
             i++;
         }
     }

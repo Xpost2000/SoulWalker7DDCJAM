@@ -65,6 +65,15 @@ public class WeaponDataScript : MonoBehaviour
             }
             else {
                 var controller_component = collider_gameObject.GetComponent<GenericActorController>();
+
+                if (is_ranged) {
+                    GameManagerScript.instance().playersoundsource.clip = GameManagerScript.instance().fire_sound;
+                    GameManagerScript.instance().playersoundsource.Play();
+                } else {
+                    GameManagerScript.instance().playersoundsource.clip = GameManagerScript.instance().hit_sound;
+                    GameManagerScript.instance().playersoundsource.Play();
+                }
+
                 if (controller_component) {
                     print("Okay, hurtin! (WeaponDataScript)");
                     print(collider_gameObject);

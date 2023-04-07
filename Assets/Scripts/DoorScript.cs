@@ -42,6 +42,9 @@ public class DoorScript : MonoBehaviour
                         "Door unlocked with " + required_item, Color.green
                     );
                     return;
+                } else {
+                    print(item.name);
+                    print("But I need " +  required_item);
                 }
             }
             GameManagerScript.instance().MessageLog.NewMessage(

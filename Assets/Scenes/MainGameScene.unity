@@ -6310,7 +6310,12 @@ MonoBehaviour:
     type: 3}
   prefab_projectile_tracer: {fileID: 2584213453415547863, guid: 9ca9660f6e6a0064fbcda628c7dd85f5,
     type: 3}
+  playersoundsource: {fileID: 833565753}
   sound_step: {fileID: 8300000, guid: 0b2aa31bc5e690f49ad68d763b6963f1, type: 3}
+  hit_sound: {fileID: 8300000, guid: 80f3618b7dc90cc4e91835544c3067a9, type: 3}
+  fire_sound: {fileID: 8300000, guid: 62b159b4f6095a64baa64111efd2c7c0, type: 3}
+  teleport_sound: {fileID: 8300000, guid: 1e4174b2fd8c42e408871488b7e6c563, type: 3}
+  pickup_sound: {fileID: 8300000, guid: 24828b8f9f2d92046852a423801f7fcf, type: 3}
   player: {fileID: 844404400}
   user_interface_container: {fileID: 1770020270}
   message_log: {fileID: 1908326908}

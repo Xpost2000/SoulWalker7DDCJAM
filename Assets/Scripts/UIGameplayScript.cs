@@ -142,12 +142,12 @@ public class UIGameplayScript : MonoBehaviour
     void Start() {
         {
             var player_actor_controller = player_object.GetComponent<GenericActorController>();
-            player_actor_controller.on_hurt += delegate(int amount, ActorState form) { StartCoroutine(AnimateFader(Color.red, 0.4f, 0.15f)); };
+            player_actor_controller.on_hurt += delegate(int amount, ActorState form) { StartCoroutine(AnimateFader(Color.red, 0.2f, 0.15f)); };
         }
         {
             var player_actor_controller = player_object.GetComponent<PlayerController>();
-            player_actor_controller.on_heal += delegate() { StartCoroutine(AnimateFader(Color.green, 0.4f, 0.15f)); };
-            player_actor_controller.on_body_equip += delegate() { StartCoroutine(AnimateFader(Color.yellow, 0.4f, 0.15f)); };
+            player_actor_controller.on_heal += delegate() { StartCoroutine(AnimateFader(Color.green, 0.2f, 0.15f)); };
+            player_actor_controller.on_body_equip += delegate() { StartCoroutine(AnimateFader(Color.yellow, 0.2f, 0.15f)); };
         }
         UpdateHPText();
         DisablePrompt();
