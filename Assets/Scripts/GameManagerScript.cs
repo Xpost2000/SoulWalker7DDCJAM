@@ -28,6 +28,8 @@ public class GameManagerScript : MonoBehaviour {
 
     // sound stuff
     public AudioSource playersoundsource; // lolol
+    public AudioSource playermusicsoundsource; // lolol
+    public AudioClip music;
     public AudioClip sound_step;
     public AudioClip hit_sound;
     public AudioClip fire_sound;
@@ -192,6 +194,10 @@ public class GameManagerScript : MonoBehaviour {
         // State = GameState.GameWin;
 
         Application.targetFrameRate = target_framerate;
+
+        playermusicsoundsource.clip = music;
+        playermusicsoundsource.loop = true;
+        playermusicsoundsource.Play();
     }
 
     public void TryToKillGame() {

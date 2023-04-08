@@ -167,11 +167,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soul_damage_modifier: 1
   physical_damage_modifier: 1
-  damage: 15
+  damage: 30
   can_do_ranged: 0
-  attack_range: 1
+  attack_range: 2
   damage_variance: 2
-  attack_hitting_chance: 0.67
+  attack_hitting_chance: 0.85
   can_wander: 1
   wander_radius: 10
   starting_position: {x: 0, y: 0, z: 0}
