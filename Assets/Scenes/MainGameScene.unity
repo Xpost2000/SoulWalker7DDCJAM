@@ -6326,7 +6326,7 @@ MonoBehaviour:
   ui_win: {fileID: 1137269526}
   ui_loading: {fileID: 1099178333}
   ui_options: {fileID: 561362823}
-  first_scene: Stage1
+  first_scene: Stage3
   seconds_per_turn: 3.5
   turns_passed: 0
 --- !u!1 &1760617121
