@@ -52,19 +52,21 @@ public class HazardZone : MonoBehaviour
 
     void OnTurnStart() {
         foreach (GameObject victim in victims) {
-            var actor_component = victim.GetComponent<GenericActorController>();
-            bool should_hurt = false;
-            if ((actor_component.form & dangerous_to) != 0) {
-                if (!blacklist_type_tags.Contains(victim.tag)) {
-                    should_hurt = true;
+            if (victim != null) {
+                var actor_component = victim.GetComponent<GenericActorController>();
+                bool should_hurt = false;
+                if ((actor_component.form & dangerous_to) != 0) {
+                    if (!blacklist_type_tags.Contains(victim.tag)) {
+                        should_hurt = true;
+                    }
                 }
-            }
 
-            if (should_hurt) {
-                if (actor_component.form == ActorState.Soul) {
-                    actor_component.Hurt(soul_damage);
-                } else {
-                    actor_component.Hurt(damage);
+                if (should_hurt) {
+                    if (actor_component.form == ActorState.Soul) {
+                        actor_component.Hurt(soul_damage);
+                    } else {
+                        actor_component.Hurt(damage);
+                    }
                 }
             }
         }

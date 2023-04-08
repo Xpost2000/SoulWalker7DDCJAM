@@ -13,17 +13,22 @@ public class LevelProgressorScript : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider collider) {
-        print("Hi the progressor was violated!");
-        print("I will teleport us to: " + target);
+        if (collider.gameObject.tag == "Player") {
+            print("Hi the progressor was violated!");
+            print("I will teleport us to: " + target);
 
-        switch (target) {
-            default: {
-                // this should be the level the progressor is in...
-                Scene current_scene = gameObject.scene;
-                GameManagerScript.instance().LoadLevel(target);
-                SceneManager.UnloadSceneAsync(current_scene);
-                print("Bye!");
-            } break;
+            switch (target) {
+                case "$endgame$": {
+                    GameManagerScript.instance().State = GameState.GameWin;
+                } break;
+                default: {
+                    // this should be the level the progressor is in...
+                    Scene current_scene = gameObject.scene;
+                    GameManagerScript.instance().LoadLevel(target);
+                    SceneManager.UnloadSceneAsync(current_scene);
+                    print("Bye!");
+                } break;
+            }
         }
     }
 
